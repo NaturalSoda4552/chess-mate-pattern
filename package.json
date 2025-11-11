@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "study": "node study/day1/day1.js",
+    "study": "node study/studyChessLibrary.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
