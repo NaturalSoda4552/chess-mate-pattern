@@ -45,7 +45,7 @@ chess1.move({ from: 'e6', to: 'd5' }); // b
 
 // 3-2. move() 성공 시 Move 객체 반환
 const moveResult = chess1.move('d4'); // w
-console.log(moveResult);
+// console.log(moveResult);
 // Move {
 //   color: 'w',                    // 수를 둔 플레이어
 //   from: 'd2',                    // 어디에서
@@ -90,10 +90,23 @@ chess1.load('rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1');
 // 5-2. loadPgn(pgn): PGN 문자열을 로드
 
 // 5-3. pgn(): 현재까지의 기록을 PGN 형식으로 반환
-console.log(chess1.pgn());
+// console.log(chess1.pgn());
 
 // 5-4. clear(): 보드 비우기
 chess1.clear();
 
 // 5-5. reset(): 기본 포지션으로 보드 리셋
 chess1.reset();
+
+// 6. 기물
+// 6-1. get(square): 특정 칸에 있는 기물 정보를 객체로 반환 (비어있으면 null)
+console.log(chess1.get('e1')); // e1 칸에 존재하는 기물: 백색 킹, 반환값: {type: 'k', color: 'w'}
+console.log(chess1.get('e3')); // e3 칸에 존재하는 기물: 없음, 반환값: null
+
+// 6-2. put(square): 특정 칸에 기물을 놓음
+chess1.put({ type: 'q', color: 'w' }, 'e4'); // 백색 퀸을 e4 칸에 놓음
+console.log(chess1.ascii());
+
+// 6-3.remove(square): 특정 칸의 기물을 제거
+chess1.remove('e4'); // e4 칸의 기물을 제거
+console.log(chess1.ascii());
