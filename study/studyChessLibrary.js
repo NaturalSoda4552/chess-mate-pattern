@@ -68,3 +68,32 @@ console.log(moveResult);
 
 // 3-5. 마지막 수 무르기
 chess1.undo();
+
+// 4. 상태 판별
+// 4-1. isGameOver(): 게임 종료 여부
+const isGameOver = chess1.isGameOver();
+// 4-2. 현재 턴 플레이어의 체크메이트 여부
+const isCheckMate = chess1.isCheckmate();
+// 4-3. 스테일메이트 여부
+const isStaleMate = chess1.isStalemate();
+// 4-4. 무승부 여부
+const isDraw = chess1.isDraw();
+// 4-5. 3회 동형 반복으로 인한 무승부 여부
+const isThreefoldRepetition = chess1.isThreefoldRepetition();
+// 4-6. 현재 턴인 플레이어의 체크 여부
+const isInCheck = chess1.inCheck();
+
+// 5. 불러오기 및 관리
+// 5-1. load(fen): FEN 문자열로 보드 초기화
+chess1.load('rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1');
+
+// 5-2. loadPgn(pgn): PGN 문자열을 로드
+
+// 5-3. pgn(): 현재까지의 기록을 PGN 형식으로 반환
+console.log(chess1.pgn());
+
+// 5-4. clear(): 보드 비우기
+chess1.clear();
+
+// 5-5. reset(): 기본 포지션으로 보드 리셋
+chess1.reset();
