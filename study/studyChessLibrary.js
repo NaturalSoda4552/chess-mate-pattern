@@ -69,6 +69,9 @@ const moveResult = chess1.move('d4'); // w
 // 3-5. 마지막 수 무르기
 chess1.undo();
 
+// 3-6. moves(): 가능한 모든 이동 수
+// console.log(chess1.moves());
+
 // 4. 상태 판별
 // 4-1. isGameOver(): 게임 종료 여부
 const isGameOver = chess1.isGameOver();
@@ -90,7 +93,7 @@ chess1.load('rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1');
 // 5-2. loadPgn(pgn): PGN 문자열을 로드
 
 // 5-3. pgn(): 현재까지의 기록을 PGN 형식으로 반환
-// console.log(chess1.pgn());
+console.log(chess1.pgn());
 
 // 5-4. clear(): 보드 비우기
 chess1.clear();
@@ -100,13 +103,44 @@ chess1.reset();
 
 // 6. 기물
 // 6-1. get(square): 특정 칸에 있는 기물 정보를 객체로 반환 (비어있으면 null)
-console.log(chess1.get('e1')); // e1 칸에 존재하는 기물: 백색 킹, 반환값: {type: 'k', color: 'w'}
-console.log(chess1.get('e3')); // e3 칸에 존재하는 기물: 없음, 반환값: null
+// console.log(chess1.get('e1')); // e1 칸에 존재하는 기물: 백색 킹, 반환값: {type: 'k', color: 'w'}
+// console.log(chess1.get('e3')); // e3 칸에 존재하는 기물: 없음, 반환값: null
 
 // 6-2. put(square): 특정 칸에 기물을 놓음
 chess1.put({ type: 'q', color: 'w' }, 'e4'); // 백색 퀸을 e4 칸에 놓음
-console.log(chess1.ascii());
+// console.log(chess1.ascii());
 
 // 6-3.remove(square): 특정 칸의 기물을 제거
 chess1.remove('e4'); // e4 칸의 기물을 제거
-console.log(chess1.ascii());
+// console.log(chess1.ascii());
+
+// 7. setInterval을 사용한 자동 게임 진행 예제
+
+const autoGameChess = new Chess();
+console.log(autoGameChess.ascii());
+
+// 1000ms(1초)마다 함수를 실행하는 인터벌 생성
+const gameInterval = setInterval(() => {
+  // 게임이 종료되었다면 인터벌을 중지
+  if (autoGameChess.isGameOver()) {
+    clearInterval(gameInterval);
+    console.log('게임 종료');
+
+    let result = '무승부';
+    if (autoGameChess.isCheckmate()) {
+      // 본인 턴에서 게임이 중지되었다면 본인의 패배
+      result = autoGameChess.turn() === 'w' ? '흑 승리' : '백 승리';
+    }
+    console.log(`결과: ${result}`);
+    return;
+  }
+
+  // 가능한 수 중에서 무작위로 하나를 선택
+  const moves = autoGameChess.moves();
+  const move = moves[Math.floor(Math.random() * moves.length)];
+  autoGameChess.move(move);
+
+  // 현재 체스판을 ascii로 출력
+  console.log(`\n 이동: ${move}`);
+  console.log(autoGameChess.ascii());
+}, 1000);
