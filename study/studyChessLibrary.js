@@ -93,7 +93,7 @@ chess1.load('rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1');
 // 5-2. loadPgn(pgn): PGN 문자열을 로드
 
 // 5-3. pgn(): 현재까지의 기록을 PGN 형식으로 반환
-console.log(chess1.pgn());
+// console.log(chess1.pgn());
 
 // 5-4. clear(): 보드 비우기
 chess1.clear();
@@ -116,31 +116,50 @@ chess1.remove('e4'); // e4 칸의 기물을 제거
 
 // 7. setInterval을 사용한 자동 게임 진행 예제
 
-const autoGameChess = new Chess();
-console.log(autoGameChess.ascii());
+// const autoGameChess = new Chess();
+// console.log(autoGameChess.ascii());
 
-// 1000ms(1초)마다 함수를 실행하는 인터벌 생성
-const gameInterval = setInterval(() => {
-  // 게임이 종료되었다면 인터벌을 중지
-  if (autoGameChess.isGameOver()) {
-    clearInterval(gameInterval);
-    console.log('게임 종료');
+// // 1000ms(1초)마다 함수를 실행하는 인터벌 생성
+// const gameInterval = setInterval(() => {
+//   // 게임이 종료되었다면 인터벌을 중지
+//   if (autoGameChess.isGameOver()) {
+//     clearInterval(gameInterval);
+//     console.log('게임 종료');
 
-    let result = '무승부';
-    if (autoGameChess.isCheckmate()) {
-      // 본인 턴에서 게임이 중지되었다면 본인의 패배
-      result = autoGameChess.turn() === 'w' ? '흑 승리' : '백 승리';
-    }
-    console.log(`결과: ${result}`);
-    return;
-  }
+//     let result = '무승부';
+//     if (autoGameChess.isCheckmate()) {
+//       // 본인 턴에서 게임이 중지되었다면 본인의 패배
+//       result = autoGameChess.turn() === 'w' ? '흑 승리' : '백 승리';
+//     }
+//     console.log(`결과: ${result}`);
+//     return;
+//   }
 
-  // 가능한 수 중에서 무작위로 하나를 선택
-  const moves = autoGameChess.moves();
-  const move = moves[Math.floor(Math.random() * moves.length)];
-  autoGameChess.move(move);
+//   // 가능한 수 중에서 무작위로 하나를 선택
+//   const moves = autoGameChess.moves();
+//   const move = moves[Math.floor(Math.random() * moves.length)];
+//   autoGameChess.move(move);
 
-  // 현재 체스판을 ascii로 출력
-  console.log(`\n 이동: ${move}`);
-  console.log(autoGameChess.ascii());
-}, 1000);
+//   // 현재 체스판을 ascii로 출력
+//   console.log(`\n 이동: ${move}`);
+//   console.log(autoGameChess.ascii());
+// }, 1000);
+
+// 8. 추가적인 기능
+// 8-1. attackers(square, color): 특정 칸을 공격하는 기물들의 위치를 반환
+console.log(chess1.attackers('f3', 'w'));
+
+// 8-2. board(): 보드를 8x8 배열로 반환
+console.log(chess1.board());
+
+// 8-3. findPiece(piece): 특정 기물이 존재하는 모든 칸을 반환
+console.log(chess1.findPiece({ type: 'p', color: 'w' }));
+
+// 8-4. history(): 게임이 시작된 후 현재까지의 모든 수의 배열을 반환
+chess1.move('e4');
+chess1.move('e5');
+chess1.move('Nf3');
+console.log(chess1.history());
+
+// 8-5. turn(): 현재 차례인 플레이어의 색을 반환
+console.log(chess1.turn());
