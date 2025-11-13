@@ -11,6 +11,7 @@ function App() {
 
   board.movePiece('e2', 'e4');
   console.log(board.getGrid()); // 이동 후 체스판 출력
+  console.log(board.getTurn()); // 이동했으므로 현재 차례는 흑
 }
 
 export default App;

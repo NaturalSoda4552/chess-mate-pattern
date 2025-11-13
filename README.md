@@ -47,10 +47,13 @@
 #### Board.js
 
 - [x] #grid (private 2D 배열)
+- [x] #turn (private string)
 - [ ] loadFen() : FEN형태의 보드로 체스판을 세팅
 - [x] getPiece() : 특정 칸의 기물 반환
 - [x] getGrid() : 체스판 반환
 - [x] movePiece() : 기물 움직이기
+- [x] toggleTurn() : 턴 교체
+- [x] getTurn() : 현재 차례 색 반환
 
 #### Piece.js
 
