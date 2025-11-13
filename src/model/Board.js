@@ -5,13 +5,63 @@ export default class Board {
   #turn;
 
   /**
-   * 생성자: Board 인스턴스를 생성
+   * 생성자: 8x8 배열로부터 Board 인스턴스를 생성
    * @param {({type: string, color: string} | null)[][]} initialGrid - 8x8 배열 형태의 초기 보드 상태
+   * @returns {Board}
    */
   constructor(initialGrid) {
     // 원본 데이터가 변경되지 않도록 깊은 복사 수행
     this.#grid = JSON.parse(JSON.stringify(initialGrid));
     this.#turn = 'w';
+  }
+  /**
+   * 생성자: Board 인스턴스를 생성
+   * @param {string} fen - FEN 문자열로부터 Board 인스턴스를 생성
+   * @returns {Board}
+   */
+  createBoardFromFen(fen) {
+    const [piecePlacement, color, _1, _2, _3, _4] = fen.split(' ');
+    this.#grid = this.#ToArray(piecePlacement);
+  }
+  /**
+   *
+   * @param {string[]} piecePlacement - FEN 기물 배치 문자열
+   * @returns {({type: string, color: string} | null)[][]}
+   */
+  #ToArray(piecePlacement) {
+    const grid = [];
+    const ranks = piecePlacement.split('/');
+
+    // 문자열 전체를 검사
+    ranks.forEach((rankString) => {
+      // 문자열의 각 행을 검사 후
+      grid.push(this.#parsePieceOneLine(rankString));
+    });
+    return grid;
+  }
+  /**
+   *
+   */
+  #parsePieceOneLine(rankString) {
+    const row = [];
+    let columnIndex = 0;
+
+    rankString.split('').forEach((char) => {
+      // 문자인 경우
+      if (isNaN(parseInt(char, 10))) {
+        row.push({
+          type: char.toLowerCase(),
+          color: char === char.toUpperCase() ? 'w' : 'b',
+        });
+        columnIndex += 1;
+      } else {
+        for (let i = 0; i < parseInt(char, 10); i++) {
+          row.push(null);
+          columnIndex += 1;
+        }
+      }
+    });
+    return row;
   }
 
   /**
