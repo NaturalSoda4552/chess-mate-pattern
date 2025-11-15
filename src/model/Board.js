@@ -14,14 +14,16 @@ export default class Board {
     this.#grid = JSON.parse(JSON.stringify(initialGrid));
     this.#turn = 'w';
   }
+
+  //#region FEN 문자열로 체스판을 생성하는 로직
   /**
    * 생성자: Board 인스턴스를 생성
    * @param {string} fen - FEN 문자열로부터 Board 인스턴스를 생성
-   * @returns {Board}
    */
   createBoardFromFen(fen) {
     const [piecePlacement, color, _1, _2, _3, _4] = fen.split(' ');
     this.#grid = this.#ToArray(piecePlacement);
+    this.#turn = color;
   }
   /**
    *
@@ -63,7 +65,48 @@ export default class Board {
     });
     return row;
   }
+  //#endregion
 
+  //#region 체스판을 FEN 문자열로 반환하는 로직
+  /**
+   * @returns {string} - FEN 문자열
+   */
+  fen() {
+    let fenStr = '';
+    for (let i = 0; i < 8; i++) {
+      let emptyCount = 0;
+
+      let rowStr = '';
+      for (let j = 0; j < 8; j++) {
+        const piece = this.#grid[i][j];
+        if (piece) {
+          if (emptyCount > 0) {
+            rowStr += emptyCount;
+            emptyCount = 0;
+          }
+          rowStr +=
+            piece.color === 'w'
+              ? piece.type.toUpperCase()
+              : piece.type.toLowerCase();
+        } else {
+          emptyCount++;
+        }
+      }
+      if (emptyCount > 0) {
+        rowStr += emptyCount;
+      }
+      fenStr += rowStr + (i < 7 ? '/' : '');
+    }
+
+    // FEN의 나머지 부분 - 색 제외는 기본값 사용
+    fenStr += ` ${this.#turn} - - 0 1`;
+
+    return fenStr;
+  }
+
+  //#endgion
+
+  //#region getter
   /**
    * 현재 보드의 2차원 배열을 반환
    * @returns {({type: string, color: string} | null)[][]}
@@ -71,7 +114,6 @@ export default class Board {
   getGrid() {
     return this.#grid;
   }
-
   /**
    * 지정된 칸의 기물 정보를 반환
    * @param {string} square - 'e4'와 같은 대수 표기법
@@ -81,7 +123,16 @@ export default class Board {
     const { row, col } = this.#squareToCoords(square);
     return this.#grid[row][col];
   }
+  /**
+   * 현재 턴인 플레이어의 색상을 반환
+   * @returns {'w' | 'b'} 'w'는 백, 'b'는 흑
+   */
+  getTurn() {
+    return this.#turn;
+  }
+  //#endregion
 
+  //#region utils
   /**
    * 특정 칸의 기물을 다른 칸으로 이동
    * @param {string} fromSquare - 기물의 시작 위치
@@ -97,14 +148,6 @@ export default class Board {
       this.#grid[fromRow][fromCol] = null;
     }
     this.#toggleTurn();
-  }
-
-  /**
-   * 현재 턴인 플레이어의 색상을 반환
-   * @returns {'w' | 'b'} 'w'는 백, 'b'는 흑
-   */
-  getTurn() {
-    return this.#turn;
   }
 
   /**
@@ -126,4 +169,5 @@ export default class Board {
   #toggleTurn() {
     this.#turn = this.#turn === 'w' ? 'b' : 'w';
   }
+  //#endregion
 }
