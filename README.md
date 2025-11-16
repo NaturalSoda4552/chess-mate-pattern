@@ -56,7 +56,7 @@
 
 #### ChessManager
 
-- [ ] loadCurrentPattern() : 현재 인덱스에 맞는 패턴을 체스판에 로드
+- [x] loadCurrentPattern() : 현재 인덱스에 맞는 패턴을 체스판에 로드
 - [ ] getCurrendPattern() : 현재 인덱스에 맞는 패턴 정보 가져오기
 - [ ] resetPattern() : 현재 패턴 리셋 (처음부터)
 - [ ] handleMove() : 사용자 수(1개 이상)를 받아 정답/오답 확인

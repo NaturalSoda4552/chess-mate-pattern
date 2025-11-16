@@ -6,12 +6,12 @@ export default class Board {
 
   /**
    * 생성자: 8x8 배열로부터 Board 인스턴스를 생성
-   * @param {({type: string, color: string} | null)[][]} initialGrid - 8x8 배열 형태의 초기 보드 상태
+   * @param {({type: string, color: string} | null)[][]} - 8x8 배열 형태의 초기 보드 상태
    * @returns {Board}
    */
-  constructor(initialGrid) {
+  constructor() {
     // 원본 데이터가 변경되지 않도록 깊은 복사 수행
-    this.#grid = JSON.parse(JSON.stringify(initialGrid));
+    this.#grid = Array.from({ length: 8 }, () => Array(8).fill(null));
     this.#turn = 'w';
   }
 
