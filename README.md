@@ -52,6 +52,7 @@
 - [x] movePiece() : 기물 움직이기
 - [x] toggleTurn() : 턴 교체
 - [x] getTurn() : 현재 차례 색 반환
+- [x] isWithinBounds() : 입력 위치가 체스판 내의 위치하는지 검사
 
 #### ChessManager
 

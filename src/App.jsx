@@ -17,8 +17,6 @@ function App() {
   board2.createBoardFromFen(
     'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1',
   );
-  console.log(board2.getGrid());
-  console.log(board2.fen());
 }
 
 export default App;

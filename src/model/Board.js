@@ -120,9 +120,12 @@ export default class Board {
    * @returns {{type: string, color: string, square: string} | null}
    */
   getPiece(square) {
+    if (!this.#isWithinBounds) return null;
+
     const { row, col } = this.#squareToCoords(square);
     return this.#grid[row][col];
   }
+
   /**
    * 현재 턴인 플레이어의 색상을 반환
    * @returns {'w' | 'b'} 'w'는 백, 'b'는 흑
@@ -139,15 +142,35 @@ export default class Board {
    * @param {string} toSquare - 기물의 목표 위치
    */
   movePiece(fromSquare, toSquare) {
+    const { row: fromRow, col: fromCol } = this.#squareToCoords(fromSquare);
+    const { row: toRow, col: toCol } = this.#squareToCoords(toSquare);
+
+    // 시작 위치와 목표 위치가 모두 체스판 위인지 검사
+    if (
+      !this.#isWithinBounds(fromRow, fromCol) ||
+      !this.#isWithinBounds(toRow, toCol)
+    ) {
+      console.error(
+        `${fromSquare} -> ${toSquare} 이동은 유효한 이동이 아닙니다.`,
+      );
+      return false;
+    }
+
     const piece = this.getPiece(fromSquare);
     if (piece) {
-      const { row: fromRow, col: fromCol } = this.#squareToCoords(fromSquare);
-      const { row: toRow, col: toCol } = this.#squareToCoords(toSquare);
-
       this.#grid[toRow][toCol] = { ...piece, square: toSquare };
       this.#grid[fromRow][fromCol] = null;
     }
     this.#toggleTurn();
+  }
+  /**
+   * 주어진 좌표가 체스판 범위(0-7) 내에 있는지 확인합니다.
+   * @param {number} row
+   * @param {number} col
+   * @returns {boolean}
+   */
+  #isWithinBounds(row, col) {
+    return row >= 0 && row < 8 && col >= 0 && col < 8;
   }
 
   /**
