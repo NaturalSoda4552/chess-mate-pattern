@@ -46,14 +46,19 @@
 
 #### Board.js
 
-- [x] #grid (private 2D 배열)
-- [x] #turn (private string)
 - [x] loadFen() : FEN형태의 보드로 체스판을 세팅
 - [x] getPiece() : 특정 칸의 기물 반환
 - [x] getGrid() : 체스판 반환
 - [x] movePiece() : 기물 움직이기
 - [x] toggleTurn() : 턴 교체
 - [x] getTurn() : 현재 차례 색 반환
+
+#### ChessManager
+
+- [ ] loadCurrentPattern() : 현재 인덱스에 맞는 패턴을 체스판에 로드
+- [ ] getCurrendPattern() : 현재 인덱스에 맞는 패턴 정보 가져오기
+- [ ] resetPattern() : 현재 패턴 리셋 (처음부터)
+- [ ] handleMove() : 사용자 수(1개 이상)를 받아 정답/오답 확인
 
 #### Piece.js
 
