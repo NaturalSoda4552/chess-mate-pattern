@@ -81,7 +81,7 @@ export default class Board {
 
     const piece = this.getPiece(fromSquare);
     if (piece) {
-      this.#grid[toRow][toCol] = { ...piece, square: toSquare };
+      this.#grid[toRow][toCol] = piece;
       this.#grid[fromRow][fromCol] = null;
     }
     this.#toggleTurn();

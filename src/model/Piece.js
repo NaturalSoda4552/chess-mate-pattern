@@ -20,7 +20,7 @@ class Piece {
    * @param {string} fromSquare - 기물이 현재 위치한 칸
    * @returns {string[]}
    */
-  getValideMoves(board, fromSquare) {
+  getValidMoves(board, fromSquare) {
     throw new Error('getValidMoves()는 자식에서 반드시 재정의되어야 합니다.');
   }
 }

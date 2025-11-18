@@ -8,7 +8,7 @@ class Queen extends Piece {
   /**
    * @override
    */
-  getValideMoves(board, fromSquare) {
+  getValidMoves(board, fromSquare) {
     const moves = [];
 
     return moves;
