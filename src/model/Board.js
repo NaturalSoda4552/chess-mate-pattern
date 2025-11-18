@@ -121,10 +121,9 @@ export default class Board {
       !this.#isWithinBounds(fromRow, fromCol) ||
       !this.#isWithinBounds(toRow, toCol)
     ) {
-      console.error(
+      return console.error(
         `${fromSquare} -> ${toSquare} 이동은 유효한 이동이 아닙니다.`,
       );
-      return false;
     }
 
     const piece = this.getPiece(fromSquare);
@@ -180,9 +179,11 @@ export default class Board {
    * @returns {{type: string, color: string, square: string} | null}
    */
   getPiece(square) {
-    if (!this.#isWithinBounds) return null;
-
     const { row, col } = this.#squareToCoords(square);
+    if (!this.#isWithinBounds(row, col)) {
+      return console.error(`${square}은 유효한 위치가 아닙니다.`);
+    }
+
     return this.#grid[row][col];
   }
 
