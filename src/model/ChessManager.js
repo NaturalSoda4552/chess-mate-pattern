@@ -3,32 +3,29 @@ import Board from './Board';
 
 class ChessManager {
   #patterns;
-  #currentPatternIndex;
+  #currentPattern;
   #board;
-  #originalFen;
-  #userMoves;
-  #status;
+  #status; // 'idle', 'ongoing', 'correct', 'wrong'
 
   constructor(patterns = MatePatterns) {
     this.#patterns = patterns;
-    this.#currentPatternIndex = null;
-    this.#board = null;
-    this.#originalFen = null;
-    this.#userMoves = [];
-    this.#status = 'idle';
+    this.#currentPattern = null;
+    this.#board = new Board();
+    this.#status = null;
   }
 
   /**
-   * 특정 패턴을 선택하여 로드
-   * @param {number} index - 패턴 인덱스
+   * 패턴 인덱스를 받아 체스 패턴을 로드하고 게임 상태를 초기화시킨다.
+   * @param {number} index
    */
-  loadCurrentPattern(index) {
-    this.#currentPatternIndex = index;
-    this.#originalFen = this.#patterns[index].initialFen;
-    this.#board = new Board();
-    this.#board.createBoardFromFen(this.#originalFen);
-    this.#userMoves = [];
-    this.#status = 'idle';
+  loadPattern(index) {
+    const pattern = this.#patterns[index];
+    if (!pattern)
+      return console.error(`${index}번 인덱스 패턴을 찾을 수 없습니다.`);
+    this.#currentPattern = pattern;
+
+    this.#board.loadFen(pattern.initialFen);
+    this.#status = 'ongoing';
   }
 }
 

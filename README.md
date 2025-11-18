@@ -77,12 +77,14 @@
 
 #### `속성`
 
+#patterns;
+#currentPattern;
+#board;
+#status;
+
 - `#patterns`: 패턴 데이터 목록
-- `#currentPatternIndex`: 현재 패턴 ID
 - `#board`: Board 인스턴스
-- `#originalFen`: 패턴 초기 FEN을 저장
 - `#lastCorrectFen`: 사용자 수 바로 직전 FEN을 저장
-- `#userMoves`: 사용자가 입력한 이동 기록
 - `#status`: 현재 게임 상태
   - `"idle" | "ongoing" | "correct" | "wrong"`
 
