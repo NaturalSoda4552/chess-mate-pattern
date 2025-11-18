@@ -17,8 +17,8 @@ export default class Board {
 
   //#region FEN 문자열로 체스판을 생성하는 로직
   /**
-   * 생성자: Board 인스턴스를 생성
    * @param {string} fen - FEN 문자열로부터 Board 인스턴스를 생성
+   * @returns {Board}
    */
   createBoardFromFen(fen) {
     const [piecePlacement, color, _1, _2, _3, _4] = fen.split(' ');
@@ -26,7 +26,6 @@ export default class Board {
     this.#turn = color;
   }
   /**
-   *
    * @param {string[]} piecePlacement - FEN 기물 배치 문자열
    * @returns {({type: string, color: string} | null)[][]}
    */
@@ -36,13 +35,15 @@ export default class Board {
 
     // 문자열 전체를 검사
     ranks.forEach((rankString) => {
-      // 문자열의 각 행을 검사 후
+      // 문자열의 각 행을 검사 후 push
       grid.push(this.#parsePieceOneLine(rankString));
     });
     return grid;
   }
   /**
    *
+   * @param {string[]} rankString - 체스판 한 행
+   * @returns {(string | null)[]}
    */
   #parsePieceOneLine(rankString) {
     const row = [];
@@ -103,36 +104,6 @@ export default class Board {
 
     return fenStr;
   }
-
-  //#endgion
-
-  //#region getter
-  /**
-   * 현재 보드의 2차원 배열을 반환
-   * @returns {({type: string, color: string} | null)[][]}
-   */
-  getGrid() {
-    return this.#grid;
-  }
-  /**
-   * 지정된 칸의 기물 정보를 반환
-   * @param {string} square - 'e4'와 같은 대수 표기법
-   * @returns {{type: string, color: string, square: string} | null}
-   */
-  getPiece(square) {
-    if (!this.#isWithinBounds) return null;
-
-    const { row, col } = this.#squareToCoords(square);
-    return this.#grid[row][col];
-  }
-
-  /**
-   * 현재 턴인 플레이어의 색상을 반환
-   * @returns {'w' | 'b'} 'w'는 백, 'b'는 흑
-   */
-  getTurn() {
-    return this.#turn;
-  }
   //#endregion
 
   //#region utils
@@ -163,10 +134,11 @@ export default class Board {
     }
     this.#toggleTurn();
   }
+
   /**
-   * 주어진 좌표가 체스판 범위(0-7) 내에 있는지 확인합니다.
-   * @param {number} row
-   * @param {number} col
+   * 주어진 좌표가 체스판 범위(0-7) 내에 있는지 확인
+   * @param {number} row - 행
+   * @param {number} col - 열
    * @returns {boolean}
    */
   #isWithinBounds(row, col) {
@@ -174,9 +146,9 @@ export default class Board {
   }
 
   /**
-   * 대수 표기법을 배열 좌표로 변환합니다. (ex. 'a8' -> {row: 0, col: 0})
-   * @param {string} square
-   * @returns {{row: number, col: number}}
+   * 특정 칸을 나타내는 문자열을 배열 좌표로 변환
+   * @param {string} square - 특정 칸
+   * @returns {{row: number, col: number}} - 좌표
    * @private
    */
   #squareToCoords(square) {
@@ -187,10 +159,38 @@ export default class Board {
 
   /**
    * 상대방에게 턴 넘기기
-   * @private
+   * @returns {boolean}
    */
   #toggleTurn() {
     this.#turn = this.#turn === 'w' ? 'b' : 'w';
+  }
+  //#endregion
+
+  //#region getter
+  /**
+   * 현재 보드의 2차원 배열을 반환
+   * @returns {({type: string, color: string} | null)[][]}
+   */
+  getGrid() {
+    return this.#grid;
+  }
+  /**
+   * 지정된 칸의 기물 정보를 반환
+   * @param {string} square - 특정 칸
+   * @returns {{type: string, color: string, square: string} | null}
+   */
+  getPiece(square) {
+    if (!this.#isWithinBounds) return null;
+
+    const { row, col } = this.#squareToCoords(square);
+    return this.#grid[row][col];
+  }
+
+  /**
+   * @returns {'w' | 'b'} * 현재 턴인 플레이어의 색상을 반환
+   */
+  getTurn() {
+    return this.#turn;
   }
   //#endregion
 }
