@@ -60,22 +60,22 @@
 
 #### Board.js
 
-- [x] `loadFen(fen)` : FEN형태의 보드로 체스판을 설정한다.
-  - [x] `ToArray(piecePlacement)` : FEN 기물 배치 문자열을 8x8 배열로 만들어 반환한다.
+- [x] `createBoardFromFen(fen)` : FEN 문자열을 받아 체스판을 세팅한다.
+
 - [x] `fen()`: 체스판을 FEN 문자열로 반환한다.
+
 - [x] `movePiece(fromSquare, toSquare)` : 출발 칸에서 목적 칸으로 기물을 움직인다.
-- [x] `isWithinBounds(row, col)` : 입력 위치가 체스판 내의 위치하는지 검사한다.
-- [x] `squareToCoords(sqaure)` : 특정 칸을 나타내는 문자열을 배열 좌표로 변환한다.
 - [x] `toggleTurn()` : 턴을 교체한다.
+
 - [ ] `validateMove(from, to)` : 기물의 유효한 이동인지 검증한다.
 - [ ] `revert()` : 초기 FEN 상태로 보드 롤백한다.
 - [x] `getGrid()` : 체스판을 반환한다.
 - [x] `getPiece()` : 특정 칸의 기물을 반환한다.
 - [x] `getTurn()` : 현재 차례 색을 반환한다.
 
-#### ChessManager
+#### ChessManager.js
 
-#### 속성
+#### `속성`
 
 - `#patterns`: 패턴 데이터 목록
 - `#currentPatternIndex`: 현재 패턴 ID
@@ -86,7 +86,7 @@
 - `#status`: 현재 게임 상태
   - `"idle" | "ongoing" | "correct" | "wrong"`
 
-#### 메서드
+#### `메서드`
 
 - [x] `loadCurrentPattern(index)` : 해당 패턴을 로드하여 보드를 초기화한다.
 - [ ] `getCurrentPattern()` : 현재 패턴 정보를 반환한다.
@@ -99,35 +99,52 @@
 - [ ] `getStatus()` : 현재 상태 반환한다.
 - [ ] `getBoardState()` : View 렌더링용 그리드를 반환
 
-#### **Piece.js**
+### `model/pieces/`
+
+#### Piece.js
 
 - 부모 클래스
-
 - `getValidMoves(board, position)` : 추상 메서드
 
 #### Pawn.js, Knight.js, Rook.js, Bishop.js, Queen.js, King.js
 
-- Piece 상속
-- 각 기물에 맞는 getValidMoves() 규칙 구현
+- 자식 클래스
+- 각 기물에 맞는 `getValidMoves()` 규칙 구현
+
+### `utils/`
+
+#### `coordinate.js`
+
+- [x] `squareToCoords(square)` : 체스 표기법을 배열 좌표로 변환한다.
+
+- [x] `coordsToSquare(row, col)` : 배열 좌표를 체스 표기법으로 변환한다.
+
+#### `PieceFactory.js`
+
+- [x] `create(fenChar)` : FEN 기물 문자를 받아 해당 `Piece` 인스턴스를 생성한다.
+
+#### `FenConverter.js`
+
+- [x] `fenToGrid(fenString)` : FEN 문자열을 받아 2차원 `Piece` 인스턴스 배열을 생성한다.
 
 ### `view/`
 
-#### **BoardComponent.jsx**
+#### BoardComponent.jsx
 
 - 8×8 체스판 렌더링
 - SquareComponent 리스트 렌더링
 - 기물 클릭, 칸 이동 이벤트 전달
 
-#### **SquareComponent.jsx**
+#### SquareComponent.jsx
 
 - 단일 칸 렌더링
 - 선택 / valid move / 힌트 여부에 따라 색상 변경
 
-#### **PieceComponent.jsx**
+#### PieceComponent.jsx
 
 - 기물 이미지 렌더링 (React props)
 
-#### **InfoPanelComponent.jsx**
+#### InfoPanelComponent.jsx
 
 - 현재 패턴 설명
 - 정답/오답 메시지 표시
@@ -136,7 +153,7 @@
 
 #### MatePatterns.js
 
-### **MatePatterns.js**
+### MatePatterns.js
 
 - 총 10개 패턴 (쉬움 5, 어려움 5)
 - 패턴 데이터 구조 예시:

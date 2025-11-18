@@ -1,5 +1,5 @@
 import { coordsToSquare, squareToCoords } from '../utils/coordinate';
-import FenConverter from './FenConverter';
+import FenConverter from './../utils/FenConverter.js';
 
 export default class Board {
   /** @type {({type: string, color: string} | null)[][]} 8x8 배열 형태의 체스판 */

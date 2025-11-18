@@ -1,11 +1,11 @@
-import Bishop from './Piece/Bishop.js';
-import King from './Piece/King.js';
-import Knight from './Piece/Knight.js';
-import Pawn from './Piece/Pawn.js';
-import Queen from './Piece/Queen.js';
-import Rook from './Piece/Rook.js';
+import Bishop from '../model/pieces/Bishop.js';
+import King from '../model/pieces/King.js';
+import Knight from '../model/pieces/Knight.js';
+import Pawn from '../model/pieces/Pawn.js';
+import Queen from '../model/pieces/Queen.js';
+import Rook from '../model/pieces/Rook.js';
 
-class PieceMaker {
+class PieceFactory {
   static create(char) {
     const color = char === char.toUpperCase() ? 'w' : 'b';
     const type = char.toLowerCase();
@@ -29,4 +29,4 @@ class PieceMaker {
   }
 }
 
-export default PieceMaker;
+export default PieceFactory;
