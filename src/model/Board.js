@@ -1,3 +1,5 @@
+import { coordsToSquare, squareToCoords } from '../utils/coordinate';
+
 export default class Board {
   /** @type {({type: string, color: string} | null)[][]} 8x8 배열 형태의 체스판 */
   #grid;
@@ -5,7 +7,7 @@ export default class Board {
   #turn;
 
   /**
-   * 생성자: 8x8 배열로부터 Board 인스턴스를 생성
+   * 생성자: 8x8 배열로부터 Board 인스턴스를 생성한다.
    * @param {({type: string, color: string} | null)[][]} - 8x8 배열 형태의 초기 보드 상태
    * @returns {Board}
    */
@@ -16,8 +18,8 @@ export default class Board {
   }
 
   //#region FEN 문자열로 체스판을 생성하는 로직
-  /**
-   * @param {string} fen - FEN 문자열로부터 Board 인스턴스를 생성
+  /** FEN 문자열로 Board 인스턴스를 생성한다.
+   * @param {string} fen - FEN 문자열
    * @returns {Board}
    */
   createBoardFromFen(fen) {
@@ -26,6 +28,7 @@ export default class Board {
     this.#turn = color;
   }
   /**
+   * 기물 배치 문자열을 받아 체스판을 생성한다.
    * @param {string[]} piecePlacement - FEN 기물 배치 문자열
    * @returns {({type: string, color: string} | null)[][]}
    */
@@ -41,7 +44,7 @@ export default class Board {
     return grid;
   }
   /**
-   *
+   * 기물 배치 문자열의 한 행을 받아 분리하여 객체 배열을 반환한다.
    * @param {string[]} rankString - 체스판 한 행
    * @returns {(string | null)[]}
    */
@@ -70,6 +73,7 @@ export default class Board {
 
   //#region 체스판을 FEN 문자열로 반환하는 로직
   /**
+   * 체스판 정보를 FEN 문자열로 반환한다.
    * @returns {string} - FEN 문자열
    */
   fen() {
@@ -108,23 +112,23 @@ export default class Board {
 
   //#region utils
   /**
-   * 특정 칸의 기물을 다른 칸으로 이동
+   * 특정 칸의 기물을 다른 칸으로 이동시킨다.
    * @param {string} fromSquare - 기물의 시작 위치
    * @param {string} toSquare - 기물의 목표 위치
    */
   movePiece(fromSquare, toSquare) {
-    const { row: fromRow, col: fromCol } = this.#squareToCoords(fromSquare);
-    const { row: toRow, col: toCol } = this.#squareToCoords(toSquare);
+    const { row: fromRow, col: fromCol } = squareToCoords(fromSquare);
+    const { row: toRow, col: toCol } = squareToCoords(toSquare);
 
     // 시작 위치와 목표 위치가 모두 체스판 위인지 검사
-    if (
-      !this.#isWithinBounds(fromRow, fromCol) ||
-      !this.#isWithinBounds(toRow, toCol)
-    ) {
-      return console.error(
-        `${fromSquare} -> ${toSquare} 이동은 유효한 이동이 아닙니다.`,
-      );
-    }
+    // if (
+    //   !this.#isWithinBounds(fromRow, fromCol) ||
+    //   !this.#isWithinBounds(toRow, toCol)
+    // ) {
+    //   return console.error(
+    //     `${fromSquare} -> ${toSquare} 이동은 유효한 이동이 아닙니다.`,
+    //   );
+    // }
 
     const piece = this.getPiece(fromSquare);
     if (piece) {
@@ -135,40 +139,7 @@ export default class Board {
   }
 
   /**
-   * 주어진 좌표가 체스판 범위(0-7) 내에 있는지 확인
-   * @param {number} row - 행
-   * @param {number} col - 열
-   * @returns {boolean}
-   */
-  #isWithinBounds(row, col) {
-    return row >= 0 && row < 8 && col >= 0 && col < 8;
-  }
-
-  /**
-   * 특정 칸을 나타내는 문자열을 배열 좌표로 변환
-   * @param {string} square - 특정 칸
-   * @returns {{row: number, col: number}} - 좌표
-   * @private
-   */
-  #squareToCoords(square) {
-    const col = square.charCodeAt(0) - 'a'.charCodeAt(0);
-    const row = 8 - parseInt(square[1], 10);
-    return { row, col };
-  }
-  /**
-   * 배열 좌표를 특정 칸을 나타내는 문자열로 변환
-   * @param {{row: number, col: number}} - 좌표
-   * @returns {string} square - 특정 칸
-   * @private
-   */
-  #coordsToSquare = (row, col) => {
-    const rowString = 8 - row;
-    const colString = String.fromCharCode('a'.charCodeAt(0) + col);
-    return colString + rowString;
-  };
-
-  /**
-   * 상대방에게 턴 넘기기
+   * 상대방에게 턴을 넘긴다.
    * @returns {boolean}
    */
   #toggleTurn() {
@@ -178,28 +149,29 @@ export default class Board {
 
   //#region getter
   /**
-   * 현재 보드의 2차원 배열을 반환
+   * 현재 보드의 2차원 배열을 반환한다.
    * @returns {({type: string, color: string} | null)[][]}
    */
   getGrid() {
     return this.#grid;
   }
   /**
-   * 지정된 칸의 기물 정보를 반환
+   * 지정된 칸의 기물 정보를 반환한다.
    * @param {string} square - 특정 칸
    * @returns {{type: string, color: string, square: string} | null}
    */
   getPiece(square) {
-    const { row, col } = this.#squareToCoords(square);
-    if (!this.#isWithinBounds(row, col)) {
-      return console.error(`${square}은 유효한 위치가 아닙니다.`);
-    }
+    const { row, col } = squareToCoords(square);
+    // if (!this.#isWithinBounds(row, col)) {
+    //   return console.error(`${square}은 유효한 위치가 아닙니다.`);
+    // }
 
     return this.#grid[row][col];
   }
 
   /**
-   * @returns {'w' | 'b'} * 현재 턴인 플레이어의 색상을 반환
+   * 현재 턴인 플레이어의 색상을 반환한다.
+   * @returns {'w' | 'b'}
    */
   getTurn() {
     return this.#turn;
