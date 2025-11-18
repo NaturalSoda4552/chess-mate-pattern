@@ -1,8 +1,8 @@
 import Piece from '../Piece';
 
 class Bishop extends Piece {
-  constructor(color, sqaure) {
-    super(color, sqaure, 'k');
+  constructor(color) {
+    super(color, 'b');
   }
 
   /**

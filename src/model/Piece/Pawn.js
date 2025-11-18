@@ -1,8 +1,8 @@
 import Piece from '../Piece';
 
 class Pawn extends Piece {
-  constructor(color, sqaure) {
-    super(color, sqaure, 'p');
+  constructor(color) {
+    super(color, 'p');
   }
 
   /**
