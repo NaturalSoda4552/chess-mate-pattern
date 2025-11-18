@@ -1,4 +1,5 @@
 import { coordsToSquare, squareToCoords } from '../utils/coordinate';
+import FenConverter from './FenConverter';
 
 export default class Board {
   /** @type {({type: string, color: string} | null)[][]} 8x8 배열 형태의 체스판 */
@@ -23,53 +24,10 @@ export default class Board {
    * @returns {Board}
    */
   createBoardFromFen(fen) {
-    const [piecePlacement, color, _1, _2, _3, _4] = fen.split(' ');
-    this.#grid = this.#ToArray(piecePlacement);
+    const { grid, color } = FenConverter.fenToBoard(fen);
+    this.#grid = grid;
     this.#turn = color;
   }
-  /**
-   * 기물 배치 문자열을 받아 체스판을 생성한다.
-   * @param {string[]} piecePlacement - FEN 기물 배치 문자열
-   * @returns {({type: string, color: string} | null)[][]}
-   */
-  #ToArray(piecePlacement) {
-    const grid = [];
-    const ranks = piecePlacement.split('/');
-
-    // 문자열 전체를 검사
-    ranks.forEach((rankString) => {
-      // 문자열의 각 행을 검사 후 push
-      grid.push(this.#parsePieceOneLine(rankString));
-    });
-    return grid;
-  }
-  /**
-   * 기물 배치 문자열의 한 행을 받아 분리하여 객체 배열을 반환한다.
-   * @param {string[]} rankString - 체스판 한 행
-   * @returns {(string | null)[]}
-   */
-  #parsePieceOneLine(rankString) {
-    const row = [];
-    let columnIndex = 0;
-
-    rankString.split('').forEach((char) => {
-      // 문자인 경우
-      if (isNaN(parseInt(char, 10))) {
-        row.push({
-          type: char.toLowerCase(),
-          color: char === char.toUpperCase() ? 'w' : 'b',
-        });
-        columnIndex += 1;
-      } else {
-        for (let i = 0; i < parseInt(char, 10); i++) {
-          row.push(null);
-          columnIndex += 1;
-        }
-      }
-    });
-    return row;
-  }
-  //#endregion
 
   //#region 체스판을 FEN 문자열로 반환하는 로직
   /**
