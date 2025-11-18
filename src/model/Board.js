@@ -155,6 +155,17 @@ export default class Board {
     const row = 8 - parseInt(square[1], 10);
     return { row, col };
   }
+  /**
+   * 배열 좌표를 특정 칸을 나타내는 문자열로 변환
+   * @param {{row: number, col: number}} - 좌표
+   * @returns {string} square - 특정 칸
+   * @private
+   */
+  #coordsToSquare = (row, col) => {
+    const rowString = 8 - row;
+    const colString = String.fromCharCode('a'.charCodeAt(0) + col);
+    return colString + rowString;
+  };
 
   /**
    * 상대방에게 턴 넘기기
