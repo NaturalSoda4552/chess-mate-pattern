@@ -23,7 +23,7 @@ export default class Board {
    * @param {string} fen
    * @returns {Board}
    */
-  createBoardFromFen(fen) {
+  loadFen(fen) {
     const { grid, color } = FenConverter.fenToBoard(fen);
     this.#grid = grid;
     this.#turn = color;

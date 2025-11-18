@@ -60,7 +60,7 @@
 
 #### Board.js
 
-- [x] `createBoardFromFen(fen)` : FEN 문자열을 받아 체스판을 세팅한다.
+- [x] `loadFen(fen)` : FEN 문자열을 받아 체스판을 세팅한다.
 
 - [x] `fen()`: 체스판을 FEN 문자열로 반환한다.
 
