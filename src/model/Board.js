@@ -8,8 +8,8 @@ export default class Board {
   #turn;
 
   /**
-   * 생성자: 8x8 배열로부터 Board 인스턴스를 생성한다.
-   * @param {({type: string, color: string} | null)[][]} - 8x8 배열 형태의 초기 보드 상태
+   * 생성자: 2차원 배열로부터 Board 인스턴스를 생성한다.
+   * @param {({type: string, color: string} | null)[][]}
    * @returns {Board}
    */
   constructor() {
@@ -18,9 +18,9 @@ export default class Board {
     this.#turn = 'w';
   }
 
-  //#region FEN 문자열로 체스판을 생성하는 로직
+  //#region FEN - Board 상호 변환
   /** FEN 문자열로 Board 인스턴스를 생성한다.
-   * @param {string} fen - FEN 문자열
+   * @param {string} fen
    * @returns {Board}
    */
   createBoardFromFen(fen) {
@@ -29,10 +29,9 @@ export default class Board {
     this.#turn = color;
   }
 
-  //#region 체스판을 FEN 문자열로 반환하는 로직
   /**
    * 체스판 정보를 FEN 문자열로 반환한다.
-   * @returns {string} - FEN 문자열
+   * @returns {string}
    */
   fen() {
     let fenStr = '';
@@ -63,7 +62,6 @@ export default class Board {
 
     // FEN의 나머지 부분 - 색 제외는 기본값 사용
     fenStr += ` ${this.#turn} - - 0 1`;
-
     return fenStr;
   }
   //#endregion
@@ -71,22 +69,15 @@ export default class Board {
   //#region utils
   /**
    * 특정 칸의 기물을 다른 칸으로 이동시킨다.
-   * @param {string} fromSquare - 기물의 시작 위치
-   * @param {string} toSquare - 기물의 목표 위치
+   * @param {string} fromSquare
+   * @param {string} toSquare
    */
   movePiece(fromSquare, toSquare) {
     const { row: fromRow, col: fromCol } = squareToCoords(fromSquare);
     const { row: toRow, col: toCol } = squareToCoords(toSquare);
 
-    // 시작 위치와 목표 위치가 모두 체스판 위인지 검사
-    // if (
-    //   !this.#isWithinBounds(fromRow, fromCol) ||
-    //   !this.#isWithinBounds(toRow, toCol)
-    // ) {
-    //   return console.error(
-    //     `${fromSquare} -> ${toSquare} 이동은 유효한 이동이 아닙니다.`,
-    //   );
-    // }
+    // 제자리인 경우 return
+    if (fromRow === toRow && fromCol === toCol) return;
 
     const piece = this.getPiece(fromSquare);
     if (piece) {
@@ -95,10 +86,8 @@ export default class Board {
     }
     this.#toggleTurn();
   }
-
   /**
    * 상대방에게 턴을 넘긴다.
-   * @returns {boolean}
    */
   #toggleTurn() {
     this.#turn = this.#turn === 'w' ? 'b' : 'w';
@@ -120,13 +109,9 @@ export default class Board {
    */
   getPiece(square) {
     const { row, col } = squareToCoords(square);
-    // if (!this.#isWithinBounds(row, col)) {
-    //   return console.error(`${square}은 유효한 위치가 아닙니다.`);
-    // }
 
     return this.#grid[row][col];
   }
-
   /**
    * 현재 턴인 플레이어의 색상을 반환한다.
    * @returns {'w' | 'b'}
