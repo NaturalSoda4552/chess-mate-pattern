@@ -96,13 +96,6 @@ export default class Board {
 
   //#region getter
   /**
-   * 현재 보드의 2차원 배열을 반환한다.
-   * @returns {({type: string, color: string} | null)[][]}
-   */
-  getGrid() {
-    return this.#grid;
-  }
-  /**
    * 지정된 칸의 기물 정보를 반환한다.
    * @param {string} square - 특정 칸
    * @returns {{type: string, color: string, square: string} | null}
