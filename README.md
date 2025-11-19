@@ -61,15 +61,11 @@
 #### Board.js
 
 - [x] `loadFen(fen)` : FEN 문자열을 받아 체스판을 세팅한다.
-
 - [x] `fen()`: 체스판을 FEN 문자열로 반환한다.
-
 - [x] `movePiece(fromSquare, toSquare)` : 출발 칸에서 목적 칸으로 기물을 움직인다.
 - [x] `toggleTurn()` : 턴을 교체한다.
-
 - [ ] `validateMove(from, to)` : 기물의 유효한 이동인지 검증한다.
 - [ ] `revert()` : 초기 FEN 상태로 보드 롤백한다.
-- [x] `getGrid()` : 체스판을 반환한다.
 - [x] `getPiece()` : 특정 칸의 기물을 반환한다.
 - [x] `getTurn()` : 현재 차례 색을 반환한다.
 
@@ -77,26 +73,23 @@
 
 #### `속성`
 
-#patterns;
-#currentPattern;
-#board;
-#status;
-
 - `#patterns`: 패턴 데이터 목록
 - `#board`: Board 인스턴스
-- `#lastCorrectFen`: 사용자 수 바로 직전 FEN을 저장
+- `#currentPattern;`: 현재 패턴
 - `#status`: 현재 게임 상태
   - `"idle" | "ongoing" | "correct" | "wrong"`
+- `#solutionSteps` : 현재 패턴의 정답
 
 #### `메서드`
 
 - [x] `loadCurrentPattern(index)` : 해당 패턴을 로드하여 보드를 초기화한다.
 - [ ] `getCurrentPattern()` : 현재 패턴 정보를 반환한다.
 - [ ] `resetPattern()` : 보드를 초기 FEN으로 되돌린다.
-- [ ] `handleMove(from, to)` :
+- [x] `handleMove(fromSquare, toSquare)` :
   - 이동 처리
   - 정답/오답 판별
   - status 업데이트
+- [x] `getBoard()` : 현재 Board 객체를 반환한다.
 - [ ] `getValidMoves(square)` : 특정 기물의 이동 가능 칸을 반환한다.
 - [ ] `getStatus()` : 현재 상태 반환한다.
 - [ ] `getBoardState()` : View 렌더링용 그리드를 반환
@@ -118,8 +111,9 @@
 #### `coordinate.js`
 
 - [x] `squareToCoords(square)` : 체스 표기법을 배열 좌표로 변환한다.
-
 - [x] `coordsToSquare(row, col)` : 배열 좌표를 체스 표기법으로 변환한다.
+- [x] `isWithinBounds(row, col)` : 주어진 좌표가 체스판 범위 내에 있는지 확인한다.
+- [x] `validateSquare(square)` : 주어진 칸이 유효한 표기법인지 확인한다.
 
 #### `PieceFactory.js`
 
