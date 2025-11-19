@@ -4,7 +4,7 @@ export const MatePatterns = [
     name: "풀스 메이트 (Fool's Mate)",
     description: '가장 짧은 체크메이트 패턴입니다.',
     hint: '백 차례이며, 체크메이트까지 1수',
-    initialFen: 'rnbqkbnr/ppppp2p/5p2/4P1p1/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2',
+    initialFen: 'rnbqkbnr/ppppp2p/5p2/4P1p1/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1',
     solution: [{ from: 'd1', to: 'h5' }],
   },
   {
