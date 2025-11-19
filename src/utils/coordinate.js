@@ -8,7 +8,7 @@ export const squareToCoords = (square) => {
   const col = square.charCodeAt(0) - 'a'.charCodeAt(0);
   const row = 8 - parseInt(square[1], 10);
 
-  if (!isWithinBounds(row, col)) throw new Error('유효한 위치가 아닙니다.');
+  if (!isWithinBounds(row, col)) return null;
 
   return { row, col };
 };
@@ -19,7 +19,7 @@ export const squareToCoords = (square) => {
  * @private
  */
 export const coordsToSquare = (row, col) => {
-  if (!isWithinBounds(row, col)) throw new Error('유효한 위치가 아닙니다.');
+  if (!isWithinBounds(row, col)) return null;
 
   const rowString = 8 - row;
   const colString = String.fromCharCode('a'.charCodeAt(0) + col);
