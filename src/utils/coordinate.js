@@ -40,7 +40,7 @@ export const isWithinBounds = (row, col) => {
  * 주어진 칸이 유효한 표기법인지 확인한다.
  * @param {string} square
  */
-export const ValidateSquare = (square) => {
+export const validateSquare = (square) => {
   const squareRegex = /^[a-h][1-8]$/;
 
   if (!squareRegex.test(square)) {
