@@ -5,12 +5,7 @@ import InfoPanel from '../components/InfoPanel';
 
 import { MatePatterns } from '../data/MatePatterns.js';
 
-import styled from 'styled-components';
 import { Grid, Box } from '@mui/material';
-
-const MainContainer = styled.div`
-  display: flex;
-`;
 
 const title = '체스 메이트 패턴 연습하기';
 
