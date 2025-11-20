@@ -8,10 +8,12 @@ const MainContainer = styled.div`
   color: black;
 `;
 
+const title = '체스 메이트 패턴 연습하기';
+
 const MainPage = () => {
   return (
     <MainContainer>
-      <Header />
+      <Header title={title} />
       <PatternSelector />
       <Board />
       <InfoPanel />
