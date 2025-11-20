@@ -17,13 +17,13 @@ const MainPage = () => {
     <Box sx={{ padding: 2 }}>
       <Header title={title} />
       <Grid container spacing={3} sx={{ mt: 2 }}>
-        <Grid item xs={4}>
+        <Grid>
           <PatternSelector
             patterns={MatePatterns}
             onPatternSelect={handlePatternSelect}
           />
         </Grid>
-        <Grid item xs={8}>
+        <Grid>
           <Board />
           <InfoPanel />
         </Grid>
