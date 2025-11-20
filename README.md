@@ -48,14 +48,6 @@
 
 ## ⚙️ 구현할 기능 목록
 
-### `controller/`
-
-#### App.js
-
-- [ ] ChessManager 인스턴스 생성
-- [ ] React View와 Model을 연결
-- [ ] 메인 화면 ↔ 퍼즐 화면 전환을 관리
-
 ### `model/`
 
 #### Board.js
@@ -64,8 +56,6 @@
 - [x] `fen()`: 체스판을 FEN 문자열로 반환한다.
 - [x] `movePiece(fromSquare, toSquare)` : 출발 칸에서 목적 칸으로 기물을 움직인다.
 - [x] `toggleTurn()` : 턴을 교체한다.
-- [ ] `validateMove(from, to)` : 기물의 유효한 이동인지 검증한다.
-- [ ] `revert()` : 초기 FEN 상태로 보드 롤백한다.
 - [x] `getPiece()` : 특정 칸의 기물을 반환한다.
 - [x] `getTurn()` : 현재 차례 색을 반환한다.
 
@@ -123,33 +113,57 @@
 
 - [x] `fenToGrid(fenString)` : FEN 문자열을 받아 2차원 `Piece` 인스턴스 배열을 생성한다.
 
-### `view/`
+### `pages/`
 
-#### BoardComponent.jsx
+#### `App.jsx`
 
-- 8×8 체스판 렌더링
-- SquareComponent 리스트 렌더링
-- 기물 클릭, 칸 이동 이벤트 전달
+- 자식 컴포넌트들의 state와 함수들을 모두 관리
+- [ ] ChessManager 상태와 UI 컴포넌트 연결 및 총괄
 
-#### SquareComponent.jsx
+### `components/`
 
-- 단일 칸 렌더링
-- 선택 / valid move / 힌트 여부에 따라 색상 변경
+#### `Header.jsx`
 
-#### PieceComponent.jsx
+- 게임 제목 최상단 헤더 컴포넌트
+- [ ] 제목 렌더링
+- props
+  - `title` : 페이지의 제목
 
-- 기물 이미지 렌더링 (React props)
+#### `PatternSelector.jsx`
 
-#### InfoPanelComponent.jsx
+- 사용자가 체스 패턴을 선택할 수 있는 컴포넌트
+- [ ] 전체 퍼즐 목록을 보여주고 사용자가 선택
+- props
+  - `patterns` : 모든 패턴 목록
+  - `cyrrentPatternId` : 현재 선택된 패턴의 ID
+  - `onPatternChange()` : 새로운 패턴을 선택했을 때, 해당 패턴의 id를 알려주는 함수
 
-- 현재 패턴 설명
-- 정답/오답 메시지 표시
+#### `Board.jsx`
+
+- 사용자가 말을 드래그 - 드롭하여 움직일 수 있는 컴포넌트
+- [ ] 체스보드 렌더링
+- [ ] 기물 클릭 및 이동 처리
+- props
+  - `board` : 현재 체스판 상태를 담는 Board 객체
+  - `selectedSquare` : 현재 사용자가 클릭한 칸
+  - `valideMoves` : 선택된 칸의 기물의 유효한 이동 경로
+  - `onSqaureClick()` : 사용자가 특정 칸을 클릭했을 시, `selectedSquare`를 알려주는 함수
+
+#### `InfoPanel.jsx`
+
+- 현재 퍼즐의 정보와 게임 상태, 버튼들을 가진 컴포넌트
+- [ ] 현재 퍼즐 정보 렌더링
+- [ ] 게임 상태 메세지 처리
+- [ ] 리셋 등 버튼 렌더링
+- props
+  - `pattern` : 현재 로드된 패턴의 정보 객체
+  - `status` : 현재 게임 상태 ('ongoing', 'correct', 'wrong')
+  - `onReset()` : 사용자가 '처음으로' 버튼을 눌렀을 때 처음으로 리셋하는 함수
+  - `onReturnCheckPoint()` : 사용자의 수가 틀렸을 때 이전 수로 돌아가는 함수
 
 ### `data/`
 
 #### MatePatterns.js
-
-### MatePatterns.js
 
 - 총 10개 패턴 (쉬움 5, 어려움 5)
 - 패턴 데이터 구조 예시:
@@ -174,3 +188,8 @@
 ```
 
 ```
+
+## 라이브러리
+
+- `Material-UI` : Google의 MD를 기반으로 한 React UI 라이브러리
+- `dnd-kit` : 드래그 앤 드롭 기능을 제공하는 React 라이브러리
