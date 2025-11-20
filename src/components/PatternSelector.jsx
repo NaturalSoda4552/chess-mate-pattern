@@ -27,6 +27,7 @@ const PatternSelector = ({ patterns, onPatternSelect }) => {
       <ButtonGroup>
         {patterns.map((pattern) => (
           <Button
+            key={pattern.id}
             variant="contained"
             onClick={() => onPatternSelect(pattern.id)}
           >
