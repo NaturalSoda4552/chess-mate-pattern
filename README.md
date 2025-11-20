@@ -132,7 +132,7 @@
 #### `PatternSelector.jsx`
 
 - 사용자가 체스 패턴을 선택할 수 있는 컴포넌트
-- [ ] 전체 퍼즐 목록을 보여주고 사용자가 선택
+- [x] 전체 퍼즐 목록을 보여주고 사용자가 선택
 - props
   - `patterns` : 모든 패턴 목록
   - `cyrrentPatternId` : 현재 선택된 패턴의 ID
