@@ -112,5 +112,12 @@ export default class Board {
   getTurn() {
     return this.#turn;
   }
+  /**
+   * 현재 체스판을 8x8 2차원 배열로 반환한다.
+   * @returns {Array<Array<import('../model/Piece.js').Piece | null>>}
+   */
+  getGrid() {
+    return this.#grid;
+  }
   //#endregion
 }

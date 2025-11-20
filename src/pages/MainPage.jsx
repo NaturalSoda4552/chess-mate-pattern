@@ -4,15 +4,21 @@ import Board from '../components/Board';
 import InfoPanel from '../components/InfoPanel';
 
 import { MatePatterns } from '../data/MatePatterns.js';
+import ChessManager from '../model/ChessManager.js';
 
 import { Grid, Box } from '@mui/material';
 
 const title = '체스 메이트 패턴 연습하기';
 
 const MainPage = () => {
+  const chessManager = new ChessManager();
+  chessManager.loadPattern(null);
+
+  // PatternSelector 컴포넌트에서 사용하는 함수
   const handlePatternSelect = (patternId) => {
-    console.log(`Selected pattern ID: ${patternId}`);
+    chessManager.loadPattern(patternId);
   };
+
   return (
     <Box sx={{ padding: 2 }}>
       <Header title={title} />
@@ -24,7 +30,7 @@ const MainPage = () => {
           />
         </Grid>
         <Grid>
-          <Board />
+          <Board board={chessManager.getBoard()} />
           <InfoPanel />
         </Grid>
       </Grid>
