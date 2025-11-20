@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { pieceImages } from '../utils/imageLoader';
+
 const BoardContainer = styled.div`
   width: 640px;
   height: 640px;
@@ -26,6 +28,12 @@ const Square = styled.div`
     props.$isValidMove && `box-shadow: inset 0 0 0 5px rgba(0, 255, 0, 0.5);`}
 `;
 
+const Piece = styled.img`
+  width: 75%;
+  height: 75%;
+  cursor: pointer;
+`;
+
 const Board = ({ board }) => {
   return (
     <BoardContainer>
@@ -41,7 +49,11 @@ const Board = ({ board }) => {
           // 칸 색상 밝기 여부
           const isLight = (row + col) % 2 !== 0;
 
-          return <Square key={squareName} $isLight={isLight}></Square>;
+          return (
+            <Square key={squareName} $isLight={isLight}>
+              {piece && <Piece src={pieceImages[piece.color][piece.type]} />}
+            </Square>
+          );
         })}
     </BoardContainer>
   );
