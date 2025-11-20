@@ -115,7 +115,7 @@
 
 ### `pages/`
 
-#### `App.jsx`
+#### `MainPage.jsx`
 
 - 자식 컴포넌트들의 state와 함수들을 모두 관리
 - [ ] ChessManager 상태와 UI 컴포넌트 연결 및 총괄
@@ -193,3 +193,4 @@
 
 - `Material-UI` : Google의 MD를 기반으로 한 React UI 라이브러리
 - `dnd-kit` : 드래그 앤 드롭 기능을 제공하는 React 라이브러리
+- `styled-components` : 코드 내 컴포넌트에 직접 스타일을 적용하는 기능을 제공하는 라이브러리
