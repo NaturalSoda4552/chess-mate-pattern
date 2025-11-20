@@ -84,7 +84,7 @@
 
 - [x] `loadCurrentPattern(index)` : 해당 패턴을 로드하여 보드를 초기화한다.
 - [ ] `getCurrentPattern()` : 현재 패턴 정보를 반환한다.
-- [ ] `resetPattern()` : 보드를 초기 FEN으로 되돌린다.
+- [x] `resetToLastCheckpoint()` : 보드를 마지막 체크포인트로 초기화한다.
 - [x] `handleMove(fromSquare, toSquare)` :
   - 이동 처리
   - 정답/오답 판별
