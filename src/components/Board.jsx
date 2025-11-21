@@ -3,6 +3,16 @@ import { motion } from 'framer-motion';
 
 import { pieceImages } from '../utils/imageLoader';
 import { useState } from 'react';
+import { Paper } from '@mui/material';
+
+const BoardFrame = styled.div`
+  display: inline-block;
+  background-color: #302e2b;
+  padding: 25px;
+  border-radius: 6px;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+`;
 
 const BoardContainer = styled.div`
   width: 640px;
@@ -46,6 +56,30 @@ const Piece = styled.img`
   height: 75%;
 `;
 
+const Coordinate = styled.span`
+  position: absolute;
+  font-size: 20px;
+  font-weight: 800;
+  color: #ebecd0;
+  pointer-events: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const RankLabel = styled(Coordinate)`
+  left: 4px;
+  width: 20px;
+  height: 80px;
+`;
+
+const FileLabel = styled(Coordinate)`
+  bottom: 2px;
+  width: 80px;
+  height: 20px;
+`;
+
 const Board = ({ board, onMove, isBoardLocked }) => {
   const [selectedSquare, setSelectedSquare] = useState(null);
   const [validMoves, setValidMoves] = useState([]);
@@ -84,77 +118,86 @@ const Board = ({ board, onMove, isBoardLocked }) => {
     }
   };
 
-  // transition을 위해 체스판과 기물을 분리하여 렌더링
   const gridForBackGround = Array.from({ length: 64 });
   const piecesOnBoard = board.getGrid().flat().filter(Boolean);
 
+  const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  const ranks = [8, 7, 6, 5, 4, 3, 2, 1];
+
   return (
-    <BoardContainer>
-      {/* 체스판 렌더링 */}
-      {gridForBackGround.map((_, index) => {
-        const row = Math.floor(index / 8);
-        const col = index % 8;
-
-        // 체스 좌표 문자열
-        const squareName = String.fromCharCode(97 + col) + (8 - row);
-        // 칸 색상 밝기 여부
-        const isLight = (row + col) % 2 !== 0;
-
-        return (
-          <Square
-            key={squareName}
-            $isLight={isLight}
-            $isSelected={selectedSquare === squareName}
-            $isValidMove={validMoves.includes(squareName)}
-            onClick={() => handleSquareClick(squareName)}
-          />
-        );
-      })}
-      {piecesOnBoard.map((piece) => {
-        const position = board.getPiecePosition(piece.id);
-        if (!position) return null; // 만약의 경우에 대한 방어 코드
-
-        const { row, col } = position;
-        return (
-          <PieceContainer
-            key={piece.id} // 기물 고유 ID
-            layout // 이 속성이 레이아웃 변경을 자동으로 감지하고 애니메이션을 적용합니다.
-            style={{
-              top: `${row * 80}px`,
-              left: `${col * 80}px`,
-            }}
-            transition={{ type: 'spring', stiffness: 500, damping: 40 }} // 애니메이션 타입 (취향에 맞게 조정)
+    <Paper
+      sx={{
+        borderRadius: 4,
+        padding: '40px 100px',
+        width: 'fit-content',
+        boxSizing: 'border-box',
+      }}
+    >
+      <BoardFrame>
+        {/* 왼쪽 숫자 좌표 */}
+        {ranks.map((rank, index) => (
+          <RankLabel
+            key={`rank-${rank}`}
+            style={{ top: `${25 + index * 80}px` }}
           >
-            <Piece src={pieceImages[piece.color][piece.type]} />
-          </PieceContainer>
-        );
-      })}
+            {rank}
+          </RankLabel>
+        ))}
 
-      {/* {board
-        .getGrid()
-        .flat()
-        .map((piece, index) => {
-          const row = Math.floor(index / 8);
-          const col = index % 8;
+        <BoardContainer>
+          {/* 체스판 렌더링 */}
+          {gridForBackGround.map((_, index) => {
+            const row = Math.floor(index / 8);
+            const col = index % 8;
 
-          // 체스 좌표 문자열
-          const squareName = String.fromCharCode(97 + col) + (8 - row);
-          // 칸 색상 밝기 여부
-          const isLight = (row + col) % 2 !== 0;
+            // 체스 좌표 문자열
+            const squareName = String.fromCharCode(97 + col) + (8 - row);
+            // 칸 색상 밝기 여부
+            const isLight = (row + col) % 2 !== 0;
 
-          return (
-            <Square
-              key={squareName}
-              $isLight={isLight}
-              $isSelected={selectedSquare === squareName}
-              $isValidMove={validMoves.includes(squareName)}
-              onClick={() => handleSquareClick(squareName)}
-            >
-              {piece && <Piece src={pieceImages[piece.color][piece.type]} />}
-            </Square>
-          );
-        })} */}
-    </BoardContainer>
+            return (
+              <Square
+                key={squareName}
+                $isLight={isLight}
+                $isSelected={selectedSquare === squareName}
+                $isValidMove={validMoves.includes(squareName)}
+                onClick={() => handleSquareClick(squareName)}
+              />
+            );
+          })}
+          {/* 기물 렌더링 */}
+          {piecesOnBoard.map((piece) => {
+            const position = board.getPiecePosition(piece.id);
+            if (!position) return null; // 만약의 경우에 대한 방어 코드
+
+            const { row, col } = position;
+            return (
+              <PieceContainer
+                key={piece.id} // 기물 고유 ID
+                layout // 이 속성이 레이아웃 변경을 자동으로 감지하고 애니메이션을 적용합니다.
+                style={{
+                  top: `${row * 80}px`,
+                  left: `${col * 80}px`,
+                }}
+                transition={{ type: 'spring', stiffness: 500, damping: 40 }} // 애니메이션 타입 (취향에 맞게 조정)
+              >
+                <Piece src={pieceImages[piece.color][piece.type]} />
+              </PieceContainer>
+            );
+          })}
+        </BoardContainer>
+
+        {/* 하단 문자 좌표 */}
+        {files.map((file, index) => (
+          <FileLabel
+            key={`file-${file}`}
+            style={{ left: `${25 + index * 80}px` }}
+          >
+            {file}
+          </FileLabel>
+        ))}
+      </BoardFrame>
+    </Paper>
   );
 };
 
