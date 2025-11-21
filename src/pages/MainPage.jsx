@@ -16,7 +16,7 @@ const MainPage = () => {
   const [updater, setUpdater] = useState(0);
 
   const [currentPattern, setCurrentPattern] = useState(null);
-  const [currentBoard, setCurrentBoard] = useState(chessManager.getBoard());
+  const currentBoard = chessManager.getBoard();
   const [moveStatus, setMoveStatus] = useState(null);
 
   // PatternSelector 컴포넌트에서 사용하는 함수
