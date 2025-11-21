@@ -24,7 +24,7 @@ const InfoPanel = ({ pattern }) => {
           borderLeft: '6px solid #6366F1',
           display: 'flex',
           gap: 2,
-          minWidth: '450px',
+          minWidth: '420px',
           alignItems: 'start',
         }}
       >
