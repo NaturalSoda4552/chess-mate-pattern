@@ -48,8 +48,8 @@ export const MatePatterns = [
     id: 4,
     name: '스머더드 메이트 (Smothered Mate)',
     description: '킹이 자신의 기물에 막히는 체크메이트 패턴입니다.',
-    hint: '백 차례이며, 체크메이트까지 1수',
-    initialFen: '6rk/5Npp/8/8/8/8/2K5/8 w - - 0 1',
+    hint: '백 차례이며, 체크메이트까지 2수',
+    initialFen: '6rk/6pp/8/4N3/8/8/2K5/8 w - - 0 1',
     solution: [
       { from: 'e5', to: 'f7' }, // w -> 체크메이트
     ],

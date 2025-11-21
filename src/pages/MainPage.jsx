@@ -1,3 +1,4 @@
+import { useState, useMemo, useEffect } from 'react';
 import Header from '../components/Header';
 import PatternSelector from '../components/PatternSelector';
 import Board from '../components/Board';
@@ -11,12 +12,18 @@ import { Grid, Box } from '@mui/material';
 const title = '체스 메이트 패턴 연습하기';
 
 const MainPage = () => {
-  const chessManager = new ChessManager();
-  chessManager.loadPattern(0);
+  const chessManager = useMemo(() => new ChessManager(), []);
+  const [updater, setUpdater] = useState(0);
+
+  useEffect(() => {
+    chessManager.loadPattern(null);
+    setUpdater((u) => u + 1);
+  }, [chessManager]);
 
   // PatternSelector 컴포넌트에서 사용하는 함수
   const handlePatternSelect = (patternId) => {
     chessManager.loadPattern(patternId);
+    setUpdater((u) => u + 1);
   };
 
   return (
