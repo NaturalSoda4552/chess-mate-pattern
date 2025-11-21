@@ -96,6 +96,12 @@ class ChessManager {
       return { status: 'CHECKMATE' };
     }
 
+    return { status: 'CORRECT' };
+  }
+  /**
+   * 상대방(흑)의 수를 진행합니다.
+   */
+  handleOpponentMove() {
     // 흑 턴
     const blackTurnMove = this.#currentPattern.solution[this.#solutionStep];
     this.#board.movePiece(blackTurnMove.from, blackTurnMove.to);
@@ -107,8 +113,6 @@ class ChessManager {
       fen: this.#board.fen(),
     });
     console.log(`체크포인트 저장: ${this.#solutionStep} 단계`);
-
-    return { status: 'CORRECT' };
   }
 
   /**

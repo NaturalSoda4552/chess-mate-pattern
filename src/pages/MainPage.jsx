@@ -19,19 +19,24 @@ const MainPage = () => {
   const currentBoard = chessManager.getBoard();
   const [moveStatus, setMoveStatus] = useState(null);
 
-  // PatternSelector 컴포넌트에서 사용하는 함수
+  const [isBoardLocked, setIsBoardLocked] = useState(false);
+
+  // 패턴 선택 시 처리 함수
   const handlePatternSelect = (patternId) => {
     chessManager.loadPattern(patternId);
     setCurrentPattern(chessManager.getCurrentPattern());
     setUpdater((u) => u + 1);
   };
 
-  // Board 관련
-
+  // 움직임 처리 함수
   const handleMove = (from, to) => {
+    // 잠겨있으면 return
+    if (isBoardLocked) return;
+
     const result = chessManager.handleMove(from, to);
     setUpdater((u) => u + 1);
 
+    // 오답일 시 처리
     if (result.status === 'WRONG') {
       // 임시로 이동
       currentBoard.movePiece(from, to);
@@ -42,6 +47,22 @@ const MainPage = () => {
         chessManager.resetToLastCheckpoint();
         setUpdater((u) => u + 1);
       }, 1000);
+
+      return;
+    }
+
+    // 정답일 시 처리
+    if (result.status === 'CORRECT') {
+      setIsBoardLocked(true);
+
+      setTimeout(() => {
+        chessManager.handleOpponentMove();
+        setUpdater((u) => u + 1);
+
+        setIsBoardLocked(false);
+      }, 1000);
+
+      return;
     }
   };
 
@@ -58,7 +79,11 @@ const MainPage = () => {
           />
         </Grid>
         <Grid sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <Board board={currentBoard} onMove={handleMove} />
+          <Board
+            board={currentBoard}
+            onMove={handleMove}
+            isBoardLocked={isBoardLocked}
+          />
           <InfoPanel pattern={currentPattern} />
         </Grid>
       </Grid>

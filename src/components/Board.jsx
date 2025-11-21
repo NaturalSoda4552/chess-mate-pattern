@@ -35,11 +35,13 @@ const Piece = styled.img`
   pointer-events: none;
 `;
 
-const Board = ({ board, onMove }) => {
+const Board = ({ board, onMove, isBoardLocked }) => {
   const [selectedSquare, setSelectedSquare] = useState(null);
   const [validMoves, setValidMoves] = useState([]);
 
   const handleSquareClick = (position) => {
+    if (isBoardLocked) return;
+
     const piece = board.getPiece(position);
 
     if (selectedSquare) {
