@@ -24,6 +24,7 @@ const MainPage = () => {
   // 패턴 선택 시 처리 함수
   const handlePatternSelect = (patternId) => {
     chessManager.loadPattern(patternId);
+    setMoveStatus(null);
     setCurrentPattern(chessManager.getCurrentPattern());
     setUpdater((u) => u + 1);
   };
@@ -64,6 +65,10 @@ const MainPage = () => {
 
       return;
     }
+
+    if (result.status === 'CHECKMATE') {
+      setMoveStatus('checkmate');
+    }
   };
 
   const handleDrag = (event) => {};
@@ -83,6 +88,7 @@ const MainPage = () => {
             board={currentBoard}
             onMove={handleMove}
             isBoardLocked={isBoardLocked}
+            moveStatus={moveStatus}
           />
           <InfoPanel pattern={currentPattern} />
         </Grid>

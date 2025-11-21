@@ -135,6 +135,22 @@ export default class Board {
     }
     return null;
   }
+  /**
+   * 기물 타입과 색을 이용하여 체스판 위의 square를 반환한다. (렌더링용)
+   * @param {number} pieceId
+   * @returns {{row: number, col: number} | null}
+   */
+  findPieceSquare(type, color) {
+    for (let row = 0; row < 8; row++) {
+      for (let col = 0; col < 8; col++) {
+        const piece = this.#grid[row][col];
+        if (piece && piece.type === type && piece.color === color) {
+          return String.fromCharCode(97 + col) + (8 - row);
+        }
+      }
+    }
+    return null;
+  }
 
   //#endregion
 }

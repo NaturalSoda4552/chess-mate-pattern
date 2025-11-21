@@ -31,15 +31,22 @@ const Square = styled.div`
   align-items: center;
   justify-content: center;
 
+  /* 1. 기본 배경색 (이게 유지되어야 함) */
   background-color: ${(props) => (props.$isLight ? '#f0d9b5' : '#b58863')};
 
-  ${(props) =>
-    props.$isSelected &&
-    `background-color: 
-      #6495ED;`}
+  /* 2. 선택 시 배경색 변경 */
+  ${(props) => props.$isSelected && `background-color: #6495ED;`}
 
+  /* 3. 이동 가능 표시 (초록색 링) */
   ${(props) =>
     props.$isValidMove && `box-shadow: inset 0 0 0 5px rgba(0, 255, 0, 0.5);`}
+
+  /* 4. [수정] 체크메이트/체크 표시 */
+  ${(props) =>
+    props.$isCheckmated &&
+    `
+      box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.8), inset 0 0 0 3px #ff3333;
+    `}
 `;
 
 const PieceContainer = styled(motion.div)`
@@ -80,7 +87,7 @@ const FileLabel = styled(Coordinate)`
   height: 20px;
 `;
 
-const Board = ({ board, onMove, isBoardLocked }) => {
+const Board = ({ board, onMove, isBoardLocked, moveStatus }) => {
   const [selectedSquare, setSelectedSquare] = useState(null);
   const [validMoves, setValidMoves] = useState([]);
 
@@ -124,6 +131,12 @@ const Board = ({ board, onMove, isBoardLocked }) => {
   const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   const ranks = [8, 7, 6, 5, 4, 3, 2, 1];
 
+  let checkmatedKingSquare = null;
+  if (moveStatus === 'checkmate') {
+    const opponentColor = board.getTurn();
+    checkmatedKingSquare = board.findPieceSquare('k', opponentColor);
+  }
+
   return (
     <Paper
       sx={{
@@ -161,6 +174,7 @@ const Board = ({ board, onMove, isBoardLocked }) => {
                 $isLight={isLight}
                 $isSelected={selectedSquare === squareName}
                 $isValidMove={validMoves.includes(squareName)}
+                $isCheckmated={checkmatedKingSquare === squareName}
                 onClick={() => handleSquareClick(squareName)}
               />
             );
