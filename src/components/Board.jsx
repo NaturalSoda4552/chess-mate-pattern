@@ -55,6 +55,7 @@ const Board = ({ board, onMove }) => {
         onMove(selectedSquare, position);
         setSelectedSquare(null);
         setValidMoves([]);
+        return;
       } else {
         const targetPiece = board.getPiece(position);
         console.log(targetPiece);
@@ -63,8 +64,8 @@ const Board = ({ board, onMove }) => {
 
     if (piece && piece.color === board.getTurn()) {
       const newValidMoves = piece.getValidMoves(board, position);
-      setSelectedSquare(position);
 
+      setSelectedSquare(position);
       setValidMoves(newValidMoves);
     } else {
       // 빈 칸이나 상대방 기물을 클릭했다면 선택 해제

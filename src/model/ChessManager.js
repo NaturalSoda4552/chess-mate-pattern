@@ -6,7 +6,7 @@ class ChessManager {
   #patterns;
   #currentPattern;
   #board;
-  #status; // 'idle', 'ongoing', 'correct', 'wrong'
+  #status; // 'INVALID_MOVE', 'WRONG', 'CORRECT', 'CHECKMATE'
   #solutionStep;
   #checkpoints;
 
@@ -32,7 +32,6 @@ class ChessManager {
     this.#currentPattern = pattern;
 
     this.#board.loadFen(pattern.initialFen);
-    this.#status = 'ongoing';
 
     this.#checkpoints = [{ step: 0, fen: pattern.initialFen }];
   }
@@ -60,35 +59,41 @@ class ChessManager {
    * 이동 처리, 정답/오답 판별, status 업데이트를 수행한다.
    * @param {string} fromSquare
    * @param {string} toSquare
+   * @returns {{status: 'INVALID_MOVE' | 'WRONG' | 'CORRECT' | 'CHECKMATE'}}
    */
   handleMove(fromSquare, toSquare) {
     // 입력받은 칸들이 유효한지 확인
-    validateSquare(fromSquare);
-    validateSquare(toSquare);
+    try {
+      validateSquare(fromSquare);
+      validateSquare(toSquare);
+    } catch (e) {
+      return { status: 'INVALID_MOVE' };
+    }
 
     const piece = this.#board.getPiece(fromSquare);
     if (!piece || piece.color !== this.#board.getTurn()) {
       console.error('기물이 없거나 플레이어 색의 기물이 아닙니다.');
-      return;
+      return { status: 'INVALID_MOVE' };
     }
     const allValidMoves = piece.getValidMoves(this.#board, fromSquare);
     if (!allValidMoves.includes(toSquare)) {
       console.error('이동할 수 없는 위치입니다.');
-      return;
+      return { status: 'INVALID_MOVE' };
     }
     const expectedMove = this.#currentPattern.solution[this.#solutionStep];
     if (fromSquare !== expectedMove.from || toSquare !== expectedMove.to) {
       console.error('오답입니다!');
-      return;
+      return { status: 'WRONG' };
     }
 
     // 정답인 경우
     this.#board.movePiece(fromSquare, toSquare);
     this.#solutionStep++;
 
+    // 체크메이트인 경우 (마지막 수인 경우)
     if (this.#solutionStep === this.#currentPattern.solution.length) {
       console.log('정답입니다!');
-      return;
+      return { status: 'CHECKMATE' };
     }
 
     // 흑 턴
@@ -103,9 +108,7 @@ class ChessManager {
     });
     console.log(`체크포인트 저장: ${this.#solutionStep} 단계`);
 
-    // // 정답인 경우
-    // this.#board.movePiece(fromSquare, toSquare);
-    // this.#solutionStep++;
+    return { status: 'CORRECT' };
   }
 
   /**

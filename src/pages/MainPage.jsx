@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Header from '../components/Header';
 import PatternSelector from '../components/PatternSelector';
 import Board from '../components/Board';
@@ -15,21 +15,34 @@ const MainPage = () => {
   const chessManager = useMemo(() => new ChessManager(), []);
   const [updater, setUpdater] = useState(0);
 
+  const [currentPattern, setCurrentPattern] = useState(null);
+  const [currentBoard, setCurrentBoard] = useState(chessManager.getBoard());
+  const [moveStatus, setMoveStatus] = useState(null);
+
   // PatternSelector 컴포넌트에서 사용하는 함수
   const handlePatternSelect = (patternId) => {
     chessManager.loadPattern(patternId);
+    setCurrentPattern(chessManager.getCurrentPattern());
     setUpdater((u) => u + 1);
   };
 
   // Board 관련
-  const board = chessManager.getBoard();
-
-  // InfoPanel 관련
-  const pattern = chessManager.getCurrentPattern();
 
   const handleMove = (from, to) => {
-    chessManager.handleMove(from, to);
+    const result = chessManager.handleMove(from, to);
     setUpdater((u) => u + 1);
+
+    if (result.status === 'WRONG') {
+      // 임시로 이동
+      currentBoard.movePiece(from, to);
+      setUpdater((u) => u + 1);
+
+      // 대기 후
+      setTimeout(() => {
+        chessManager.resetToLastCheckpoint();
+        setUpdater((u) => u + 1);
+      }, 1000);
+    }
   };
 
   const handleDrag = (event) => {};
@@ -45,8 +58,8 @@ const MainPage = () => {
           />
         </Grid>
         <Grid sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <Board board={board} onMove={handleMove} />
-          <InfoPanel pattern={pattern} />
+          <Board board={currentBoard} onMove={handleMove} />
+          <InfoPanel pattern={currentPattern} />
         </Grid>
       </Grid>
     </Box>
