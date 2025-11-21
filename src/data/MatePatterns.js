@@ -34,7 +34,7 @@ export const MatePatterns = [
   },
   {
     id: 3,
-    name: '계단/사다리 메이트 (Ladder/Staircase)',
+    name: '계단/사다리 메이트 (Ladder/Staircase Mate)',
     description: '메이저 피스 2개로 만들 수 있는 체크메이트 패턴입니다.',
     hint: '백 차례이며, 체크메이트까지 2수',
     initialFen: '8/4k3/6R1/7Q/8/8/8/3K4 w - - 0 1',
