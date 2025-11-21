@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { pieceImages } from '../utils/imageLoader';
+import { useState } from 'react';
 
 const BoardContainer = styled.div`
   width: 640px;
@@ -31,10 +32,47 @@ const Square = styled.div`
 const Piece = styled.img`
   width: 75%;
   height: 75%;
-  cursor: pointer;
+  pointer-events: none;
 `;
 
-const Board = ({ board }) => {
+const Board = ({ board, onMove }) => {
+  const [selectedSquare, setSelectedSquare] = useState(null);
+  const [validMoves, setValidMoves] = useState([]);
+
+  const handleSquareClick = (position) => {
+    const piece = board.getPiece(position);
+
+    if (selectedSquare) {
+      // 선택된 칸을 다시 클릭하면 선택 해제
+      if (selectedSquare === position) {
+        setSelectedSquare(null);
+        setValidMoves([]);
+        return;
+      }
+
+      // 이동 가능한 칸을 클릭하면 기물 이동
+      if (validMoves.includes(position)) {
+        onMove(selectedSquare, position);
+        setSelectedSquare(null);
+        setValidMoves([]);
+      } else {
+        const targetPiece = board.getPiece(position);
+        console.log(targetPiece);
+      }
+    }
+
+    if (piece && piece.color === board.getTurn()) {
+      const newValidMoves = piece.getValidMoves(board, position);
+      setSelectedSquare(position);
+
+      setValidMoves(newValidMoves);
+    } else {
+      // 빈 칸이나 상대방 기물을 클릭했다면 선택 해제
+      setSelectedSquare(null);
+      setValidMoves([]);
+    }
+  };
+
   return (
     <BoardContainer>
       {board
@@ -50,7 +88,13 @@ const Board = ({ board }) => {
           const isLight = (row + col) % 2 !== 0;
 
           return (
-            <Square key={squareName} $isLight={isLight}>
+            <Square
+              key={squareName}
+              $isLight={isLight}
+              $isSelected={selectedSquare === squareName}
+              $isValidMove={validMoves.includes(squareName)}
+              onClick={() => handleSquareClick(squareName)}
+            >
               {piece && <Piece src={pieceImages[piece.color][piece.type]} />}
             </Square>
           );
