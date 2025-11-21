@@ -25,6 +25,8 @@ class ChessManager {
    */
   loadPattern(index) {
     const pattern = this.#patterns[index];
+    this.#solutionStep = 0;
+
     if (!pattern)
       return console.error(`${index}번 인덱스 패턴을 찾을 수 없습니다.`);
     this.#currentPattern = pattern;
