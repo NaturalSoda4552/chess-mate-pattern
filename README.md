@@ -74,7 +74,7 @@
 #### `메서드`
 
 - [x] `loadCurrentPattern(index)` : 해당 패턴을 로드하여 보드를 초기화한다.
-- [ ] `getCurrentPattern()` : 현재 패턴 정보를 반환한다.
+- [x] `getCurrentPattern()` : 현재 패턴 정보를 반환한다.
 - [x] `resetToLastCheckpoint()` : 보드를 마지막 체크포인트로 초기화한다.
 - [x] `handleMove(fromSquare, toSquare)` :
   - 이동 처리
@@ -147,6 +147,7 @@
 - [x] 기물 클릭 및 이동 처리
 - [ ] 기물 드래그 앤 드롭 처리
 - [ ] 기물 이동 시 transition 애니메이션
+- [ ] 기물 이동이 정답/오답일 시 시각적으로 표시
 
 - props
   - `board` : 현재 체스판 상태를 담는 Board 객체
@@ -157,9 +158,8 @@
 #### `InfoPanel.jsx`
 
 - 현재 퍼즐의 정보와 게임 상태, 버튼들을 가진 컴포넌트
-- [ ] 현재 퍼즐 정보 렌더링
+- [x] 현재 퍼즐 정보 렌더링
 - [ ] 게임 상태 메세지 처리
-- [ ] 리셋 등 버튼 렌더링
 - props
   - `pattern` : 현재 로드된 패턴의 정보 객체
   - `status` : 현재 게임 상태 ('ongoing', 'correct', 'wrong')
@@ -197,5 +197,6 @@
 ## 라이브러리
 
 - `Material-UI` : Google의 MD를 기반으로 한 React UI 라이브러리
+- `@mui/icons-material` : 다양한 아이콘을 제공하는 라이브러리
 - `dnd-kit` : 드래그 앤 드롭 기능을 제공하는 React 라이브러리
 - `styled-components` : 코드 내 컴포넌트에 직접 스타일을 적용하는 기능을 제공하는 라이브러리

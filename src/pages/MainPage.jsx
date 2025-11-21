@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import Header from '../components/Header';
 import PatternSelector from '../components/PatternSelector';
 import Board from '../components/Board';
@@ -21,8 +21,11 @@ const MainPage = () => {
     setUpdater((u) => u + 1);
   };
 
-  // Board 클릭 & DND 기능 관련 함수
+  // Board 관련
   const board = chessManager.getBoard();
+
+  // InfoPanel 관련
+  const pattern = chessManager.getCurrentPattern();
 
   const handleMove = (from, to) => {
     chessManager.handleMove(from, to);
@@ -41,9 +44,9 @@ const MainPage = () => {
             onPatternSelect={handlePatternSelect}
           />
         </Grid>
-        <Grid>
+        <Grid sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <Board board={board} onMove={handleMove} />
-          <InfoPanel />
+          <InfoPanel pattern={pattern} />
         </Grid>
       </Grid>
     </Box>

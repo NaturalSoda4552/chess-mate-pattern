@@ -115,6 +115,13 @@ class ChessManager {
   getBoard() {
     return this.#board;
   }
+  /**
+   * 현재 패턴을 반환한다.
+   * @returns {string | null}
+   */
+  getCurrentPattern() {
+    return this.#currentPattern;
+  }
 }
 
 export default ChessManager;
