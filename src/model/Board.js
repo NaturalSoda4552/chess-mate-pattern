@@ -119,5 +119,22 @@ export default class Board {
   getGrid() {
     return this.#grid;
   }
+  /**
+   * 기물의 고유 ID를 이용하여 체스판 위의 해당 기물의 좌표를 반환한다. (렌더링용)
+   * @param {number} pieceId
+   * @returns {{row: number, col: number} | null}
+   */
+  getPiecePosition(pieceId) {
+    for (let row = 0; row < 8; row++) {
+      for (let col = 0; col < 8; col++) {
+        const piece = this.#grid[row][col];
+        if (piece && piece.id === pieceId) {
+          return { row, col };
+        }
+      }
+    }
+    return null;
+  }
+
   //#endregion
 }

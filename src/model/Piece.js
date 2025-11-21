@@ -1,4 +1,8 @@
+// 전역에서 선언하여 Piece 객체가 생성될 때마다 1씩 증가하여 고유 id를 생성
+let pieceIdCounter = 0;
+
 class Piece {
+  id;
   color;
   type;
 
@@ -10,6 +14,7 @@ class Piece {
    * @returns {Piece}
    */
   constructor(color, type) {
+    this.id = pieceIdCounter += 1;
     this.color = color;
     this.type = type;
   }

@@ -81,9 +81,7 @@
   - 정답/오답 판별
   - status 업데이트
 - [x] `getBoard()` : 현재 Board 객체를 반환한다.
-- [ ] `getValidMoves(square)` : 특정 기물의 이동 가능 칸을 반환한다.
 - [x] `getStatus()` : 현재 상태 반환한다.
-- [ ] `getBoardState()` : View 렌더링용 그리드를 반환
 
 ### `model/pieces/`
 
