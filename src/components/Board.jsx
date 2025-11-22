@@ -45,7 +45,8 @@ const Square = styled.div`
   ${(props) =>
     props.$isCheckmated &&
     `
-      box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.8), inset 0 0 0 3px #ff3333;
+      box-shadow: inset 0 0 20px rgba(255, 0, 0, 0.8),
+      inset 0 0 0 2px rgba(255, 0, 0, 0.8);
     `}
 `;
 
@@ -132,7 +133,7 @@ const Board = ({ board, onMove, isBoardLocked, moveStatus }) => {
   const ranks = [8, 7, 6, 5, 4, 3, 2, 1];
 
   let checkmatedKingSquare = null;
-  if (moveStatus === 'checkmate') {
+  if (moveStatus === 'CHECKMATE') {
     const opponentColor = board.getTurn();
     checkmatedKingSquare = board.findPieceSquare('k', opponentColor);
   }
