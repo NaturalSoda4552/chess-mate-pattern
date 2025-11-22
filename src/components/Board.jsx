@@ -88,10 +88,16 @@ const FileLabel = styled(Coordinate)`
   height: 20px;
 `;
 
-const Board = ({ board, onMove, isBoardLocked, moveStatus }) => {
-  const [selectedSquare, setSelectedSquare] = useState(null);
-  const [validMoves, setValidMoves] = useState([]);
-
+const Board = ({
+  board,
+  onMove,
+  isBoardLocked,
+  moveStatus,
+  selectedSquare,
+  setSelectedSquare,
+  validMoves,
+  setValidMoves,
+}) => {
   const handleSquareClick = (position) => {
     if (isBoardLocked) return;
 

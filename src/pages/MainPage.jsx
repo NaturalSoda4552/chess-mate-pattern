@@ -21,12 +21,17 @@ const MainPage = () => {
 
   const [isBoardLocked, setIsBoardLocked] = useState(false);
 
+  const [selectedSquare, setSelectedSquare] = useState(null);
+  const [validMoves, setValidMoves] = useState([]);
+
   // 패턴 선택 시 처리 함수
   const handlePatternSelect = (patternId) => {
     chessManager.loadPattern(patternId);
     setMoveStatus(null);
     setIsBoardLocked(false);
     setCurrentPattern(chessManager.getCurrentPattern());
+    setSelectedSquare(null);
+    setValidMoves([]);
     setUpdater((u) => u + 1);
   };
 
@@ -101,6 +106,10 @@ const MainPage = () => {
             onMove={handleMove}
             isBoardLocked={isBoardLocked}
             moveStatus={moveStatus}
+            selectedSquare={selectedSquare}
+            setSelectedSquare={setSelectedSquare}
+            validMoves={validMoves}
+            setValidMoves={setValidMoves}
           />
           <InfoPanel pattern={currentPattern} moveStatus={moveStatus} />
         </Grid>
