@@ -21,10 +21,13 @@ const MainPage = () => {
 
   const [isBoardLocked, setIsBoardLocked] = useState(false);
 
+  console.log(moveStatus);
+
   // 패턴 선택 시 처리 함수
   const handlePatternSelect = (patternId) => {
     chessManager.loadPattern(patternId);
     setMoveStatus(null);
+    setIsBoardLocked(false);
     setCurrentPattern(chessManager.getCurrentPattern());
     setUpdater((u) => u + 1);
   };
@@ -43,6 +46,9 @@ const MainPage = () => {
       currentBoard.movePiece(from, to);
       setUpdater((u) => u + 1);
 
+      // WRONG 상태로 변경
+      setMoveStatus(result.status);
+
       // 대기 후
       setTimeout(() => {
         chessManager.resetToLastCheckpoint();
@@ -56,6 +62,9 @@ const MainPage = () => {
     if (result.status === 'CORRECT') {
       setIsBoardLocked(true);
 
+      // CORRECT 상태로 변경
+      setMoveStatus(result.status);
+
       setTimeout(() => {
         chessManager.handleOpponentMove();
         setUpdater((u) => u + 1);
@@ -67,7 +76,11 @@ const MainPage = () => {
     }
 
     if (result.status === 'CHECKMATE') {
-      setMoveStatus('checkmate');
+      // 체크메이트 상태로 변경
+      setMoveStatus(result.status);
+
+      // 체스판 잠구기
+      setIsBoardLocked(true);
     }
   };
 
