@@ -21,8 +21,6 @@ const MainPage = () => {
 
   const [isBoardLocked, setIsBoardLocked] = useState(false);
 
-  console.log(moveStatus);
-
   // 패턴 선택 시 처리 함수
   const handlePatternSelect = (patternId) => {
     chessManager.loadPattern(patternId);
@@ -104,7 +102,7 @@ const MainPage = () => {
             isBoardLocked={isBoardLocked}
             moveStatus={moveStatus}
           />
-          <InfoPanel pattern={currentPattern} />
+          <InfoPanel pattern={currentPattern} moveStatus={moveStatus} />
         </Grid>
       </Grid>
     </Box>

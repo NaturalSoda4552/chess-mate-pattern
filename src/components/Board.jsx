@@ -183,18 +183,18 @@ const Board = ({ board, onMove, isBoardLocked, moveStatus }) => {
           {/* 기물 렌더링 */}
           {piecesOnBoard.map((piece) => {
             const position = board.getPiecePosition(piece.id);
-            if (!position) return null; // 만약의 경우에 대한 방어 코드
+            if (!position) return null;
 
             const { row, col } = position;
             return (
               <PieceContainer
-                key={piece.id} // 기물 고유 ID
-                layout // 이 속성이 레이아웃 변경을 자동으로 감지하고 애니메이션을 적용합니다.
+                key={piece.id}
+                layout
                 style={{
                   top: `${row * 80}px`,
                   left: `${col * 80}px`,
                 }}
-                transition={{ type: 'spring', stiffness: 500, damping: 40 }} // 애니메이션 타입 (취향에 맞게 조정)
+                transition={{ type: 'spring', stiffness: 500, damping: 40 }}
               >
                 <Piece src={pieceImages[piece.color][piece.type]} />
               </PieceContainer>
