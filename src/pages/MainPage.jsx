@@ -87,8 +87,9 @@ const MainPage = () => {
   const handleDrag = (event) => {};
 
   return (
-    <Box sx={{ padding: 2 }}>
+    <Box>
       <Header title={title} />
+
       <Grid container spacing={3} sx={{ mt: 2 }}>
         <Grid>
           <PatternSelector
