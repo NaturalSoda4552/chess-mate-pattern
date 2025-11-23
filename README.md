@@ -10,7 +10,7 @@
 
 ### 레포지토리 복제
 
-`git clone git@github.com:NaturalSoda4552/chess-mate-pattern.git`
+`https://github.com/NaturalSoda4552/chess-mate-pattern.git`
 
 ### 프로젝트 폴더로 이동 & 라이브러리 설치
 
