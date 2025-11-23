@@ -14,8 +14,10 @@
 
 ### 프로젝트 폴더로 이동 & 라이브러리 설치
 
-`cd chess-mate-pattern`
-`npm install`
+```
+cd chess-mate-pattern
+npm install
+```
 
 ### 개발 서버 실행
 
