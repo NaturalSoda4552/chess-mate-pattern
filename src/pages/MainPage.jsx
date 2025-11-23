@@ -87,32 +87,41 @@ const MainPage = () => {
     }
   };
 
-  const handleDrag = (event) => {};
-
   return (
-    <Box>
+    <Box
+      sx={{
+        minWidth: '1838px',
+        width: 'fit-content',
+      }}
+    >
       <Header title={title} />
 
-      <Grid container spacing={3} sx={{ mt: 2 }}>
-        <Grid>
-          <PatternSelector
-            patterns={MatePatterns}
-            onPatternSelect={handlePatternSelect}
-          />
-        </Grid>
-        <Grid sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <Board
-            board={currentBoard}
-            onMove={handleMove}
-            isBoardLocked={isBoardLocked}
-            moveStatus={moveStatus}
-            selectedSquare={selectedSquare}
-            setSelectedSquare={setSelectedSquare}
-            validMoves={validMoves}
-            setValidMoves={setValidMoves}
-          />
-          <InfoPanel pattern={currentPattern} moveStatus={moveStatus} />
-        </Grid>
+      <Grid
+        container
+        spacing={3}
+        sx={{
+          mt: 2,
+          justifyContent: 'center',
+          alignItems: 'flex-start',
+          padding: '5px',
+        }}
+      >
+        <PatternSelector
+          patterns={MatePatterns}
+          onPatternSelect={handlePatternSelect}
+        />
+
+        <Board
+          board={currentBoard}
+          onMove={handleMove}
+          isBoardLocked={isBoardLocked}
+          moveStatus={moveStatus}
+          selectedSquare={selectedSquare}
+          setSelectedSquare={setSelectedSquare}
+          validMoves={validMoves}
+          setValidMoves={setValidMoves}
+        />
+        <InfoPanel pattern={currentPattern} moveStatus={moveStatus} />
       </Grid>
     </Box>
   );

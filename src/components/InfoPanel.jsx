@@ -87,7 +87,9 @@ const InfoPanel = ({ pattern, moveStatus }) => {
   }, [currentStatus]);
 
   return (
-    <InfoPanelContainer style={{ gap: '20px' }}>
+    <InfoPanelContainer
+      style={{ gap: '20px', display: 'flex', flexDirection: 'column' }}
+    >
       <Paper
         elevation={2}
         sx={{
@@ -105,7 +107,7 @@ const InfoPanel = ({ pattern, moveStatus }) => {
           <Typography variant="h6" fontWeight="bold" gutterBottom>
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body1" color="text.secondary">
             {description}
           </Typography>
           <Typography variant="body2" color="text.secondary">
