@@ -32,7 +32,7 @@ describe('Board', () => {
     expect(grid[3][3]).toBeNull();
   });
 
-  it('체스판은 fen 문자열을 받아 loadFen()로 체스판을 초기화할 수 있어야 합니다.', () => {
+  it('체스판은 fen 문자열을 받아 loadFen()로 체스판을 초기화할 수 있어야 한다', () => {
     const fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1';
     board.loadFen(fen);
 
@@ -44,7 +44,7 @@ describe('Board', () => {
     expect(board.getTurn()).toBe('w');
   });
 
-  it('잘못된 FEN 문자열을 loadFen()에 전달하면 에러를 발생시켜야 합니다.', () => {
+  it('잘못된 FEN 문자열을 loadFen()에 전달하면 에러를 발생시켜야 한다', () => {
     const invalidFenRow = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP w - - 0 1'; // 7줄
     const invalidFenFile =
       'rnbqkbnr/pppppppp/9/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1'; // 9칸
@@ -53,7 +53,7 @@ describe('Board', () => {
     expect(() => board.loadFen(invalidFenFile)).toThrow();
   });
 
-  it('기물을 움직이면 상대 턴으로 바뀌어야 합니다.', () => {
+  it('기물을 움직이면 상대 턴으로 바뀌어야 한다', () => {
     const fen = 'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2';
     board.loadFen(fen);
     expect(board.getTurn()).toBe('w');
@@ -68,7 +68,7 @@ describe('Board', () => {
     expect(board.getTurn()).toBe('b');
   });
 
-  it('fen()를 통해 현재 체스판을 fen 문자열로 추출할 수 있어야 합니다.', () => {
+  it('fen()를 통해 현재 체스판을 fen 문자열로 추출할 수 있어야 한다', () => {
     const initialFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1';
     board.loadFen(initialFen);
 
@@ -77,7 +77,7 @@ describe('Board', () => {
     ).toBe(true);
   });
 
-  it('getPiecePosition()는 기물의 ID로 정확한 위치 {row, col}을 반환해야 합니다.', () => {
+  it('getPiecePosition()는 기물의 ID로 정확한 위치를 반환해야 한다', () => {
     const fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1';
     board.loadFen(fen);
 
@@ -88,7 +88,7 @@ describe('Board', () => {
     expect(position).toEqual({ row: 7, col: 4 });
   });
 
-  it('findPieceSquare()는 기물의 타입과 색으로 정확한 좌표를 반환해야 합니다.', () => {
+  it('findPieceSquare()는 기물의 타입과 색으로 정확한 좌표를 반환해야 한다', () => {
     const fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1';
     board.loadFen(fen);
 
