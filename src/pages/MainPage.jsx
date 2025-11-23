@@ -50,7 +50,7 @@ const MainPage = () => {
       setUpdater((u) => u + 1);
 
       // WRONG 상태로 변경
-      setMoveStatus(result.status);
+      setMoveStatus({ status: result.status, id: Date.now() });
 
       // 대기 후
       setTimeout(() => {
@@ -66,7 +66,7 @@ const MainPage = () => {
       setIsBoardLocked(true);
 
       // CORRECT 상태로 변경
-      setMoveStatus(result.status);
+      setMoveStatus({ status: result.status, id: Date.now() });
 
       setTimeout(() => {
         chessManager.handleOpponentMove();
@@ -80,7 +80,7 @@ const MainPage = () => {
 
     if (result.status === 'CHECKMATE') {
       // 체크메이트 상태로 변경
-      setMoveStatus(result.status);
+      setMoveStatus({ status: result.status, id: Date.now() });
 
       // 체스판 잠구기
       setIsBoardLocked(true);

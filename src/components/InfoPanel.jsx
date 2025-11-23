@@ -12,14 +12,17 @@ import { useEffect, useRef } from 'react';
 
 const statusMap = {
   CORRECT: {
+    color: '#4CAF50',
     icon: CheckCircleOutlineIcon,
     text: '정답입니다.',
   },
   WRONG: {
+    color: '#F44336',
     icon: HighlightOffIcon,
     text: '오답입니다.',
   },
   CHECKMATE: {
+    color: '#FFC107',
     icon: EmojiEventsIcon,
     text: '체크메이트!',
   },
@@ -60,11 +63,15 @@ const InfoPanel = ({ pattern, moveStatus }) => {
     : pattern.description;
   const hint = !pattern ? null : pattern.hint;
 
-  const Icon = moveStatus ? statusMap[moveStatus].icon : null;
+  const currentStatus = moveStatus ? moveStatus.status : null;
+
+  const Icon = currentStatus ? statusMap[currentStatus].icon : null;
+  const text = currentStatus ? statusMap[currentStatus].text : null;
+  const color = currentStatus ? statusMap[currentStatus].color : '#ffffff';
 
   const canvasRef = useRef(null);
   useEffect(() => {
-    if (moveStatus === 'CHECKMATE' && canvasRef.current) {
+    if (currentStatus === 'CHECKMATE' && canvasRef.current) {
       const myConfetti = confetti.create(canvasRef.current, {
         resize: true,
         useWorker: true,
@@ -77,10 +84,10 @@ const InfoPanel = ({ pattern, moveStatus }) => {
       });
       return () => myConfetti.reset();
     }
-  }, [moveStatus]);
+  }, [currentStatus]);
 
   return (
-    <InfoPanelContainer>
+    <InfoPanelContainer style={{ gap: '20px' }}>
       <Paper
         elevation={2}
         sx={{
@@ -108,50 +115,59 @@ const InfoPanel = ({ pattern, moveStatus }) => {
       </Paper>
 
       {/* 정답, 오답, 체크메이트 Paper */}
-      <Paper
-        elevation={2}
-        sx={{
-          padding: 3,
-          borderRadius: 3,
-          borderLeft: '6px solid #6366F1',
-          display: 'flex',
-          gap: 2,
-          minWidth: '350px',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        {moveStatus && (
+      {moveStatus && (
+        <Paper
+          elevation={2}
+          sx={{
+            width: '100%',
+            height: '100%',
+            minHeight: '120px',
+            borderRadius: 4,
+
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+
+            backgroundColor: color,
+            border: `2px solid ${color}`,
+
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
+          <canvas
+            ref={canvasRef}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              pointerEvents: 'none',
+              zIndex: 1,
+            }}
+          />
           <motion.div
-            key={moveStatus}
+            key={moveStatus.id}
             variants={boxVariants}
-            animate={moveStatus}
+            animate={currentStatus}
             transition={{ duration: 0.4 }}
-            style={{ display: 'flex', gap: '8px' }}
+            style={{ display: 'flex', gap: '8px', zIndex: 2 }}
           >
-            <Icon sx={{ fontSize: 30 }} />
-            <Typography variant="h6" fontWeight="bold" gutterBottom>
-              {statusMap[moveStatus].text}
+            <Icon sx={{ fontSize: 40, color: '#ffffff' }} />
+            <Typography
+              variant="h4"
+              fontWeight="bold"
+              color="#ffffff"
+              margin="0px"
+              gutterBottom
+            >
+              {statusMap[currentStatus].text}
             </Typography>
-            {moveStatus === 'CHECKMATE' && (
-              <canvas
-                ref={canvasRef}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  pointerEvents: 'none',
-                  zIndex: 1,
-                }}
-              />
-            )}
           </motion.div>
-        )}
-      </Paper>
+        </Paper>
+      )}
     </InfoPanelContainer>
   );
 };
