@@ -31,6 +31,11 @@ vitest를 사용하여 작성된 단위 테스트를 실행합니다.
 
 `npm test`
 
+## 소감
+
+[4~5주차 오픈미션 일자별 소감문](https://www.notion.so/4-5-2b43ddba37838075a30cd95d72a761ef?source=copy_link)
+
+
 ## 핵심 기능 요구사항
 
 1. 패턴 목록
