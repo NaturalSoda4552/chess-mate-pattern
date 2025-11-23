@@ -102,4 +102,16 @@ export const MatePatterns = [
       { from: 'a6', to: 'b7' },
     ],
   },
+  {
+    id: 9,
+    name: '퀸 희생 메이트 (Queen Sacrifice Mate)',
+    description: '퀸을 희생하는 체크메이트 패턴입니다.',
+    hint: '백 차례이며, 체크메이트까지 2수',
+    initialFen: '6rk/p2b1prp/3p1N2/4pP2/4P2Q/2P3RP/2q3PK/8 w - - 0 1',
+    solution: [
+      { from: 'h4', to: 'h7' },
+      { from: 'g7', to: 'h7' },
+      { from: 'g3', to: 'g8' },
+    ],
+  },
 ];
