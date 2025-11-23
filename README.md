@@ -16,7 +16,7 @@ https://github.com/NaturalSoda4552/chess-mate-pattern.git
 
 ```
 cd chess-mate-pattern
-npm install
+npm install (npm가 설치되어 있어야 합니다.)
 ```
 
 ### 개발 서버 실행
