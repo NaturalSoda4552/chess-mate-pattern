@@ -5,6 +5,8 @@
  * @private
  */
 export const squareToCoords = (square) => {
+  validateSquare(square);
+
   const col = square.charCodeAt(0) - 'a'.charCodeAt(0);
   const row = 8 - parseInt(square[1], 10);
 

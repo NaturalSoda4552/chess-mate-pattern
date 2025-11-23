@@ -20,6 +20,9 @@ class FenConverter {
   static #parsePlacement(placementString) {
     const grid = [];
     const ranks = placementString.split('/');
+    if (ranks.length !== 8) {
+      throw new Error('전체 랭크의 수는 8개여야 합니다.');
+    }
 
     ranks.forEach((rankString) => {
       grid.push(FenConverter.#parseRank(rankString));
@@ -33,18 +36,26 @@ class FenConverter {
    */
   static #parseRank(rankString) {
     const rank = [];
+    let fileCount = 0;
 
     rankString.split('').forEach((char) => {
       // 문자인 경우
       if (isNaN(parseInt(char, 10))) {
         const pieceInstance = PieceFactory.create(char);
         rank.push(pieceInstance);
+        fileCount += 1;
       } else {
         for (let i = 0; i < parseInt(char, 10); i++) {
           rank.push(null);
         }
+        fileCount += parseInt(char, 10);
       }
     });
+
+    if (fileCount !== 8) {
+      throw new Error('한 랭크는 정확히 8칸이여야 합니다.');
+    }
+
     return rank;
   }
 }
