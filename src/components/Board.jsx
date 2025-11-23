@@ -139,7 +139,7 @@ const Board = ({
   const ranks = [8, 7, 6, 5, 4, 3, 2, 1];
 
   let checkmatedKingSquare = null;
-  if (moveStatus === 'CHECKMATE') {
+  if (moveStatus && moveStatus.status === 'CHECKMATE') {
     const opponentColor = board.getTurn();
     checkmatedKingSquare = board.findPieceSquare('k', opponentColor);
   }
