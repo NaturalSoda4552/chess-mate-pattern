@@ -48,10 +48,58 @@ export const MatePatterns = [
     id: 4,
     name: '스머더드 메이트 (Smothered Mate)',
     description: '킹이 자신의 기물에 막히는 체크메이트 패턴입니다.',
-    hint: '백 차례이며, 체크메이트까지 2수',
+    hint: '백 차례이며, 체크메이트까지 1수',
     initialFen: '6rk/6pp/8/4N3/8/8/2K5/8 w - - 0 1',
     solution: [
       { from: 'e5', to: 'f7' }, // w -> 체크메이트
+    ],
+  },
+  {
+    id: 5,
+    name: "레갈스 메이트 (Legal's Mate)",
+    description: '마이너 피스(나이트, 비숍)를 활용한 체크메이트 패턴입니다.',
+    hint: '백 차례이며, 체크메이트까지 2수',
+    initialFen:
+      'r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/2BbK2R w Kkq - 0 5',
+    solution: [
+      { from: 'c4', to: 'f7' },
+      { from: 'e8', to: 'e7' },
+      { from: 'c3', to: 'd5' }, // w -> 체크메이트
+    ],
+  },
+  {
+    id: 6,
+    name: "스왈로우테일 메이트 (Swallow's Tail Mate)",
+    description:
+      '폰으로 퇴로가 막힌 킹이 퀸의 공격을 받는 체크메이트 패턴입니다.',
+    hint: '백 차례이며, 체크메이트까지 1수',
+    initialFen: '8/2p1p3/3k4/8/8/8/Q5B1/8 w - - 0 1',
+    solution: [
+      { from: 'a2', to: 'd5' }, // w -> 체크메이트
+    ],
+  },
+  {
+    id: 7,
+    name: "롤리 메이트 (Lolli's Mate)",
+    description: '폰과 퀸을 이용한 체크메이트 패턴입니다.',
+    hint: '백 차례이며, 체크메이트까지 2수',
+    initialFen: '7k/5p1p/5Ppq/8/8/8/8/7Q w - - 0 1',
+    solution: [
+      { from: 'h1', to: 'h6' },
+      { from: 'h8', to: 'g8' },
+      { from: 'h6', to: 'g7' },
+    ],
+  },
+  {
+    id: 8,
+    name: '죽음의 키스 메이트 (Kiss of Death Mate)',
+    description: '킹과 퀸을 이용한 체크메이트 패턴입니다.',
+    hint: '백 차례이며, 체크메이트까지 2수',
+    initialFen: 'k7/8/1K6/1Q6/8/8/8/8 w - - 0 1',
+    solution: [
+      { from: 'b5', to: 'a6' },
+      { from: 'a8', to: 'b8' },
+      { from: 'a6', to: 'b7' },
     ],
   },
 ];

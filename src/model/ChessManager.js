@@ -48,11 +48,6 @@ class ChessManager {
     this.#board.loadFen(lastCheckPoint.fen);
 
     this.#solutionStep = lastCheckPoint.step;
-    console.log(
-      `'${this.#currentPattern.name}' 패턴의 ${
-        lastCheckPoint.step
-      } 단계로 돌아갑니다.`,
-    );
   }
 
   /**
@@ -82,7 +77,6 @@ class ChessManager {
     }
     const expectedMove = this.#currentPattern.solution[this.#solutionStep];
     if (fromSquare !== expectedMove.from || toSquare !== expectedMove.to) {
-      console.error('오답입니다!');
       return { status: 'WRONG' };
     }
 
@@ -92,7 +86,6 @@ class ChessManager {
 
     // 체크메이트인 경우 (마지막 수인 경우)
     if (this.#solutionStep === this.#currentPattern.solution.length) {
-      console.log('정답입니다!');
       return { status: 'CHECKMATE' };
     }
 
@@ -112,7 +105,6 @@ class ChessManager {
       step: this.#solutionStep,
       fen: this.#board.fen(),
     });
-    console.log(`체크포인트 저장: ${this.#solutionStep} 단계`);
   }
 
   /**
