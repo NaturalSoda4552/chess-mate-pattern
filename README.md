@@ -173,15 +173,13 @@
 
 ```
   {
-  id: 0,
-  name: "Smothered Mate",
-  difficulty: "easy",
-  initialFen: "8/5pkp/6p1/8/8/6N1/5PPP/6K1 w - - 0 1",
-  solution: [
-  { from: "g3", to: "e4" }
-  ],
-  description: "나이트에 의한 기본적인 메이트 패턴입니다."
-  }
+    id: 0,
+    name: "풀스 메이트 (Fool's Mate)",
+    description: '가장 짧은 체크메이트 패턴입니다.',
+    hint: '백 차례이며, 체크메이트까지 1수',
+    initialFen: 'rnbqkbnr/ppppp2p/5p2/4P1p1/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1',
+    solution: [{ from: 'd1', to: 'h5' }],
+  },
 ```
 
 ### `tests/`
