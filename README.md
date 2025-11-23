@@ -6,6 +6,31 @@
 - 퍼즐 데이터, 데이터 관리, 게임 로직을 분리하여 `명확한 책임 구조`를 가진 Model을 만든다.
 - `MVC 패턴` 적용 및 `React`를 `View`로 활용하여 UI 체스 게임을 렌더링
 
+## ⌕ 프로젝트 명령어
+
+### 레포지토리 복제
+
+`git clone git@github.com:NaturalSoda4552/chess-mate-pattern.git`
+
+### 프로젝트 폴더로 이동 & 라이브러리 설치
+
+`cd chess-mate-pattern`
+`npm install`
+
+### 개발 서버 실행
+
+Vite 개발 서버를 실행하여 프로젝트를 확인합니다. 서버가 실행되면 터미널에
+표시되는 로컬 주소(일반적으로 http://localhost:5173)를 웹 브라우저에서
+열어주세요.
+
+` npm run dev`
+
+### 테스트 실행
+
+vitest를 사용하여 작성된 단위 테스트를 실행합니다.
+
+`npm test`
+
 ## 핵심 기능 요구사항
 
 1. 패턴 목록
@@ -97,38 +122,38 @@
 
 ### `utils/`
 
-#### `coordinate.js`
+#### coordinate.js
 
 - [x] `squareToCoords(square)` : 체스 표기법을 배열 좌표로 변환한다.
 - [x] `coordsToSquare(row, col)` : 배열 좌표를 체스 표기법으로 변환한다.
 - [x] `isWithinBounds(row, col)` : 주어진 좌표가 체스판 범위 내에 있는지 확인한다.
 - [x] `validateSquare(square)` : 주어진 칸이 유효한 표기법인지 확인한다.
 
-#### `PieceFactory.js`
+#### PieceFactory.js
 
 - [x] `create(fenChar)` : FEN 기물 문자를 받아 해당 `Piece` 인스턴스를 생성한다.
 
-#### `FenConverter.js`
+#### FenConverter.js
 
 - [x] `fenToGrid(fenString)` : FEN 문자열을 받아 2차원 `Piece` 인스턴스 배열을 생성한다.
 
 ### `pages/`
 
-#### `MainPage.jsx`
+#### MainPage.jsx
 
 - 자식 컴포넌트들의 state와 함수들을 모두 관리
 - [x] ChessManager 상태와 UI 컴포넌트 연결 및 총괄
 
 ### `components/`
 
-#### `Header.jsx`
+#### Header.jsx
 
 - 게임 제목 최상단 헤더 컴포넌트
 - [x] 제목 렌더링
 - props
   - `title` : 페이지의 제목
 
-#### `PatternSelector.jsx`
+#### PatternSelector.jsx
 
 - 사용자가 체스 패턴을 선택할 수 있는 컴포넌트
 - [x] 전체 퍼즐 목록을 보여주고 사용자가 선택
@@ -137,7 +162,7 @@
   - `cyrrentPatternId` : 현재 선택된 패턴의 ID
   - `onPatternChange()` : 새로운 패턴을 선택했을 때, 해당 패턴의 id를 알려주는 함수
 
-#### `Board.jsx`
+#### Board.jsx
 
 - 사용자가 말을 드래그 - 드롭하여 움직일 수 있는 컴포넌트
 - [x] 체스보드 렌더링
@@ -151,7 +176,7 @@
   - `valideMoves` : 선택된 칸의 기물의 유효한 이동 경로
   - `onSqaureClick()` : 사용자가 특정 칸을 클릭했을 시, `selectedSquare`를 알려주는 함수
 
-#### `InfoPanel.jsx`
+#### InfoPanel.jsx
 
 - 현재 퍼즐의 정보와 게임 상태, 버튼들을 가진 컴포넌트
 - [x] 현재 퍼즐 정보 렌더링
